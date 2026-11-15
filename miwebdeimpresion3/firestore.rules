@@ -1,8 +1,0 @@
-rules_version = '2';
-service cloud.firestore { match /databases/{db}/documents {
-  // Reservas: el cliente solo puede crearlas; las lees tú en la consola o con Functions
-  match /pedidos/{id} { allow create: if request.resource.data.keys().hasAll(['codigo','nombre','email','items','total']) && request.resource.data.codigo == id; allow read, update, delete: if false; }
-  // Estados: el cliente consulta uno por código (sin listar); solo tú los cambias (consola)
-  match /estados/{id} { allow get: if true; allow list: if false; allow create: if request.resource.data.estado == 'Pedido enviado'; allow update, delete: if false; }
-  match /solicitudes/{id} { allow create: if request.resource.data.codigo == id; allow read, update, delete: if false; }
-}}
