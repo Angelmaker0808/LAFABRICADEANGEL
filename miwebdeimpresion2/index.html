@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="es"><head><title>Mi Estudio 3D · Figuras bajo demanda</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="styles.css"></head><body>
+<div id="prog" class="prog"></div>
+<header class="top"><a class="brand" href="index.html">Mi Estudio 3D</a>
+<nav class="nav"><a href="#navidad">Navidad</a><a href="#catalogo">Catálogo</a><a href="#como">Cómo reservar</a><a href="#faq">Dudas</a><a href="seguimiento.html">Seguir pedido</a></nav>
+<a class="cart-link" href="carrito.html" aria-label="Ver carrito">Carrito <span id="badge" class="badge">0</span></a></header>
+<section class="hero"><div class="hero-in"><div><h1>Figuras y modelos 3D hechos para ti</h1>
+<p>Se imprimen y rematan a mano solo cuando reservas. Elige color y tamaño, reserva sin pagar ahora y te enviamos el enlace de pago.</p>
+<a class="btn" href="#catalogo">Ver catálogo</a> <a class="btn ghost light" href="#como">Cómo funciona</a></div><div id="hero-art" class="hero-art"></div></div></section>
+<section id="navidad" class="xmas"><div class="wrap"><h2>Colección de Navidad</h2><p>Detalles únicos para regalar o decorar. Reserva antes para llegar a tiempo.</p>
+<div id="grid-navidad" class="grid"></div></div></section>
+<main class="wrap" id="catalogo"><h2>Catálogo</h2><section id="grid" class="grid" aria-label="Catálogo"></section></main>
+<section id="como" class="band"><div class="wrap"><h2>Reserva en 3 pasos</h2><ol class="three">
+<li class="rv"><b>1</b><h3>Elige y configura</h3><p>Escoge el modelo, el color, el tamaño y cuéntanos tus ideas en las notas.</p></li>
+<li class="rv"><b>2</b><h3>Revisamos y te enviamos el pago</h3><p>Sin cobro al reservar. Miramos tu pedido y te escribimos con un enlace de pago seguro.</p></li>
+<li class="rv"><b>3</b><h3>Fabricamos y enviamos</h3><p>Imprimimos tu pieza y la mandamos a casa. Puedes ver cada fase con tu código.</p></li></ol></div></section>
+<section class="wrap"><h2>Hecho con cuidado</h2><div class="values">
+<div class="rv"><h3>Bajo demanda</h3><p>Nada de stock parado: cada pieza se fabrica para ti.</p></div>
+<div class="rv"><h3>Acabado a mano</h3><p>Revisamos y rematamos cada figura antes de enviarla.</p></div>
+<div class="rv"><h3>Tu toque personal</h3><p>Nombres, colores y detalles a tu gusto.</p></div></div>
+<div class="track-cta rv"><h3>Sigue tu pedido paso a paso</h3><ol class="steps-track"><li>Pedido enviado</li><li>Esperando pago</li><li>Pago confirmado</li><li>Elaborando</li><li>Enviando</li><li>Recibido</li></ol><a class="btn" href="seguimiento.html">Consultar mi pedido</a></div></section>
+<section id="faq" class="wrap narrow"><h2>Dudas frecuentes</h2>
+<details><summary>¿Se cobra al reservar?</summary><p>No. Primero revisamos tu pedido y luego te enviamos un enlace de pago por correo.</p></details>
+<details><summary>¿Puedo personalizar mi figura?</summary><p>Sí. Usa el campo de notas al configurar el producto.</p></details>
+<details><summary>¿Cómo sé en qué fase está mi pedido?</summary><p>Con tu código RES- y tu correo en la página de seguimiento.</p></details></section>
+<footer class="foot">© Mi Estudio 3D · Figuras y modelos 3D bajo demanda</footer>
+<!-- Modal de configuración del producto -->
+<dialog id="modal">
+  <form method="dialog" id="cfg" class="cfg">
+    <button type="button" class="close" id="close" aria-label="Cerrar">×</button>
+    <img id="m-img" alt="">
+    <div class="cfg-body">
+      <h2 id="m-name"></h2><p id="m-desc" class="muted"></p>
+      <label>Cantidad<input type="number" id="m-qty" min="1" value="1"></label>
+      <label>Color<select id="m-color"></select></label>
+      <label>Tamaño / escala<select id="m-size"></select></label>
+      <label>Notas de personalización<textarea id="m-notes" rows="3" placeholder="Ej.: con mi nombre en la base"></textarea></label>
+      <p class="price" id="m-price"></p>
+      <button type="button" class="btn" id="m-add">Añadir al carrito</button>
+    </div>
+  </form>
+</dialog>
+<script src="app.js"></script></body></html>
