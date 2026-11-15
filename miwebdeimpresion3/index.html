@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mi Estudio 3D · Figuras bajo demanda</title><link rel="stylesheet" href="styles.css"></head><body>
+<div id="prog" class="prog"></div>
+<header class="top"><a class="brand" href="index.html">Mi Estudio 3D</a>
+<a class="cart-link" href="carrito.html" aria-label="Ver carrito">Carrito <span id="badge" class="badge">0</span></a>
+<nav class="nav"><a href="#navidad">Navidad</a><a href="#catalogo">Catálogo</a><a href="#medida">A medida</a><a href="#como">Cómo reservar</a><a href="seguimiento.html">Seguir pedido</a></nav></header>
+
+<section class="hero"><div class="hero-in"><div><h1>Figuras y modelos 3D hechos para ti</h1>
+<p>Impresos bajo demanda. Reserva sin pagar ahora y te enviamos el enlace de pago.</p>
+<a class="btn" href="#catalogo">Ver catálogo</a></div><div id="hero-art" class="hero-art"></div></div></section>
+
+<!-- Colección de temporada: carrusel horizontal (productos con cat:'navidad' en app.js) -->
+<section id="navidad" class="xmas"><div class="wrap"><div class="sec-head"><div><h2>Colección de Navidad</h2><p class="muted">Detalles para regalar o decorar. Reserva con tiempo.</p></div>
+<div class="rail-btns"><button id="rail-prev" aria-label="Anterior">‹</button><button id="rail-next" aria-label="Siguiente">›</button></div></div>
+<div id="rail" class="rail"></div></div></section>
+
+<!-- Banner estrecho: diseño a medida -->
+<section id="medida" class="medida"><div class="in"><p><strong>¿Tienes una idea?</strong> Solicita tu diseño a medida.</p><button class="btn" data-open="medida">Solicitar diseño</button></div></section>
+
+<main class="wrap" id="catalogo"><h2>Catálogo</h2>
+<div class="toolbar"><div id="chips" class="chips" role="group" aria-label="Categorías"></div><input id="q" type="search" placeholder="Buscar modelo…" aria-label="Buscar"></div>
+<section id="grid" class="grid" aria-live="polite"></section></main>
+
+<section id="como" class="band"><div class="wrap"><h2>Reserva en 3 pasos</h2><ol class="three">
+<li class="rv"><span class="n">1</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></div><h3>Elige y configura</h3><p>Modelo, color, tamaño y notas de personalización.</p></li>
+<li class="rv"><span class="n">2</span><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><h3>Recibe tu enlace de pago</h3><p>Sin cobro al reservar. Revisamos tu pedido y te escribimos.</p></li>
+<li class="rv"><span class="n">3</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg></div><h3>Fabricamos y enviamos</h3><p>Imprimimos tu pieza y la mandamos a casa.</p></li></ol></div></section>
+
+<section class="wrap"><div class="track-cta rv"><h3>Sigue tu pedido</h3><p class="muted">Con tu código de reserva y tu correo puedes ver en qué fase está.</p><a class="btn" href="seguimiento.html">Consultar mi pedido</a></div></section>
+
+<section id="faq" class="wrap narrow"><h2>Dudas frecuentes</h2>
+<details><summary>¿Se cobra al reservar?</summary><p>No. Primero revisamos tu pedido y luego te enviamos un enlace de pago por correo.</p></details>
+<details><summary>¿Puedo personalizar mi figura?</summary><p>Sí. Usa el campo de notas al configurar el producto o pide un diseño a medida.</p></details></section>
+<footer class="foot">© Mi Estudio 3D · Figuras y modelos 3D bajo demanda</footer>
+
+<!-- Modal de configuración del producto -->
+<dialog id="modal"><form method="dialog" id="cfg" class="cfg"><button type="button" class="close" id="close" aria-label="Cerrar">×</button>
+<img id="m-img" alt=""><div class="cfg-body"><h2 id="m-name"></h2><p id="m-desc" class="muted"></p>
+<label>Cantidad<input type="number" id="m-qty" min="1" value="1"></label>
+<label>Color<select id="m-color"></select></label><label>Tamaño / escala<select id="m-size"></select></label>
+<label>Notas de personalización<textarea id="m-notes" rows="3" placeholder="Ej.: con mi nombre en la base"></textarea></label>
+<p class="price" id="m-price"></p><button type="button" class="btn" id="m-add">Añadir al carrito</button></div></form></dialog>
+
+<!-- Modal: diseño a medida (formulario Netlify con imágenes opcionales) -->
+<dialog id="dlg-medida" class="dlg"><button type="button" class="close" data-close aria-label="Cerrar">×</button>
+<form id="medida-form" name="diseno-medida" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" class="form">
+<h2>Diseño a medida</h2><p class="muted">Cuéntanos qué quieres y te respondemos con una propuesta.</p>
+<input type="hidden" name="form-name" value="diseno-medida"><input type="hidden" name="codigo"><p hidden><label>No rellenar <input name="bot-field"></label></p>
+<label>Nombre<input name="nombre" required></label><label>Correo electrónico<input type="email" name="email" required></label>
+<label>Teléfono / WhatsApp (opcional)<input type="tel" name="telefono"></label>
+<label>Describe tu idea<textarea name="descripcion" rows="4" required placeholder="Qué es, tamaño aproximado, colores, para qué lo quieres…"></textarea></label>
+<label>Imágenes de referencia (opcional, hasta 3, máx. 5 MB cada una)<input type="file" name="imagen1" accept="image/*"><input type="file" name="imagen2" accept="image/*"><input type="file" name="imagen3" accept="image/*"></label>
+<label class="check"><input type="checkbox" name="privacidad" required> Acepto que se usen mis datos solo para gestionar esta solicitud.</label>
+<p id="medida-err" class="error" role="alert" hidden></p><button class="btn" id="medida-send">Enviar solicitud</button></form>
+<div id="medida-ok" class="done" hidden><h2>¡Solicitud enviada!</h2><p>Tu referencia:</p><div class="code small" id="medida-code"></div><p>Te responderemos por correo con una propuesta.</p></div></dialog>
+<script src="backend.js"></script><script src="app.js"></script></body></html>
