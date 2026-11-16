@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Confirmar reserva · Estudio Terra</title><meta name="description" content="Datos de contacto y envío para tu reserva.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body data-page="finalizar"><div id="top"></div><main>
+<div class="container"><div class="page-head"><h1>Confirmar reserva</h1><p>Sin pago ahora. Te enviamos los datos y el enlace de pago.</p></div>
+<div class="cw" id="checkout">
+<form id="form" name="reservas-3d" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="form"><input type="hidden" name="form-name" value="reservas-3d"><p hidden><label>No rellenar <input name="bot-field"></label></p>
+<input type="hidden" name="codigo"><input type="hidden" name="total"><textarea name="pedido" hidden></textarea>
+<div class="field"><label>Nombre y apellidos *</label><input name="nombre" required autocomplete="name"></div>
+<div class="field"><label>Correo electrónico *</label><input type="email" name="email" required autocomplete="email"></div>
+<div class="field"><label>Teléfono / WhatsApp *</label><input type="tel" name="telefono" required autocomplete="tel"></div>
+<div class="field"><label>Calle y número *</label><input name="calle" required autocomplete="street-address"></div>
+<div class="field"><div class="row"><div><label>Código postal *</label><input name="cp" required pattern="[0-9]{5}" inputmode="numeric" autocomplete="postal-code" title="5 dígitos"></div><div><label>Ciudad *</label><input name="ciudad" required autocomplete="address-level2"></div></div></div>
+<div class="field"><label>Provincia *</label><input name="provincia" required autocomplete="address-level1"></div>
+<div class="field"><label>Notas (opcional)</label><textarea name="notas" rows="3" placeholder="Algo que debamos saber de tu pedido"></textarea></div>
+<label class="chk"><input type="checkbox" name="privacidad" required> Acepto la <a href="legal.html#privacidad" style="text-decoration:underline">política de privacidad</a> y que usen mis datos para gestionar el pedido.</label>
+<p id="err" class="error" role="alert" hidden></p><button class="btn big accent" id="send">Confirmar reserva</button></form>
+<aside class="summary"><h2>Resumen</h2><div id="sum"></div></aside></div>
+<div class="donebox" id="done" hidden><div class="ok">✓</div><h1>¡Reserva recibida!</h1><p>Hemos recibido tu solicitud. En breve revisaremos tu pedido y te responderemos a tu correo con el enlace de pago para iniciar la elaboración.</p>
+<p>Tu número de pedido</p><div class="codebox" id="code"></div><button class="btn ghost" id="copy">Copiar código</button> <a class="btn" id="track" href="seguimiento.html">Ver estado del pedido</a></div></div>
+</main><div id="bottom"></div><script src="backend.js"></script><script src="app.js"></script></body></html>
