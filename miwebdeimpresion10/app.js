@@ -372,13 +372,28 @@ if (pg === 'finalizar') {
 }
 
 if (pg === 'seguimiento') {
-  const f = $('#track-form'), out = $('#out'), q = new URLSearchParams(location.search); f.codigo.value = q.get('codigo') || ''; f.email.value = q.get('email') || '';
+  const f = $('#track-form'), out = $('#out'), q = new URLSearchParams(location.search);
+  f.codigo.value = q.get('codigo') || '';
+  f.email.value = q.get('email') || '';
   f.addEventListener('submit', async e => {
-    e.preventDefault(); out.innerHTML = '<p class="muted">Buscando…</p>';
+    e.preventDefault();
+    out.innerHTML = '<p class="muted">Buscando…</p>';
     try {
-      const n = ESTADOS.indexOf(await BACKEND.getStatus(f.codigo.value, f.email.value));
-      out.innerHTML = n < 0 ? '<p class="error">No encontramos ese pedido. Revisa el código y el correo.</p>' : `<h2 style="font-size:1.4rem;margin-top:10px">Estado: ${ESTADOS[n]}</h2><div class="timeline">${ESTADOS.map((s, i) => `<div class="tstep ${i < n ? 'done' : i === n ? 'now' : ''}"><i>${i <= n ? '✓' : ''}</i><b>${s}</b></div>`).join('')}</div>`;
-    } catch (x) { out.innerHTML = `<p class="error">${x.message === 'off' ? 'El seguimiento aún no está activado en esta tienda.' : 'No se pudo consultar el estado. Inténtalo en unos minutos.'}</p>`; }
+      const d = await BACKEND.getStatus(f.codigo.value, f.email.value);
+      const est = d.estado || 'Reserva recibida';
+      const idx = ESTADOS.indexOf(est);
+      out.innerHTML = `
+        <div class="track-band">
+          <div>
+            <span class="eyebrow">Pedido ${esc(d.codigo)}</span>
+            <h2>Hola ${esc(d.nombre)}</h2>
+            <p>Estado actual: <b style="color:var(--accent)">${esc(est)}</b></p>
+          </div>
+        </div>
+        <div class="timeline">${ESTADOS.map((s, i) => `<div class="tstep ${i <= idx ? 'done' : ''} ${i === idx ? 'now' : ''}"><i>${i <= idx ? '✓' : ''}</i><b>${esc(s)}</b></div>`).join('')}</div>`;
+    } catch (x) {
+      out.innerHTML = `<p class="error">${esc(x.message || 'No se pudo consultar el estado.')}</p>`;
+    }
   });
   if (f.codigo.value && f.email.value) f.requestSubmit();
 }
