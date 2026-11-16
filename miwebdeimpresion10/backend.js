@@ -66,7 +66,29 @@ const BACKEND = {
     });
   },
 
-  async getStatus(codigo, email) {
-    throw new Error('off');
-  }
+ getStatus(codigo, email) {
+  return new Promise((resolve, reject) => {
+    const cbName = 'cb_' + Date.now();
+    const script = document.createElement('script');
+    window[cbName] = (data) => {
+      delete window[cbName];
+      script.remove();
+      if (data && data.ok) resolve(data);
+      else reject(new Error((data && data.error) || 'No encontrado'));
+    };
+    script.onerror = () => {
+      delete window[cbName];
+      reject(new Error('Error de red'));
+    };
+    script.src = APPS_SCRIPT_URL
+      + '?action=status'
+      + '&codigo=' + encodeURIComponent(codigo)
+      + '&email=' + encodeURIComponent(email)
+      + '&callback=' + cbName;
+    document.body.appendChild(script);
+    setTimeout(() => {
+      if (window[cbName]) { delete window[cbName]; reject(new Error('Timeout')); }
+    }, 10000);
+  });
+}
 };
