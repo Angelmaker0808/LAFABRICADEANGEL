@@ -203,4 +203,19 @@ img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{fon
   .gen-hero-mark{font-size:11rem;right:2rem}
   .gen-hero h1{font-size:3.4rem}
   .gen-grid{grid-template-columns:repeat(3,1fr);gap:1.2rem}
+  /* ===== Ficha de generador + guías en página generador ===== */
+.gen-tag{display:inline-block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;background:var(--lav,#EEF0FF);color:var(--accent);font-weight:600;padding:.25rem .6rem;border-radius:3px;margin:.3rem 0 .6rem}
+.gen-ficha-gal{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:0 calc(var(--gut) * -1)}
+.gen-ficha-img{aspect-ratio:1;background:var(--soft);border-radius:var(--r);overflow:hidden;display:grid;place-items:center}
+.gen-ficha-img:first-child{grid-column:1/-1;aspect-ratio:4/3}
+.gen-ficha-img img{width:100%;height:100%;object-fit:cover}
+.gen-ficha-img .ph{font-size:3rem;color:var(--accent);opacity:.5}
+.gen-guias{display:grid;gap:.8rem;margin:.4rem 0 1.6rem}
+.gen-guia{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.1rem}
+.gen-guia b{display:block;font:600 .95rem Inter,sans-serif;margin-bottom:.25rem;color:var(--ink)}
+.gen-guia p{font-size:.88rem;color:var(--muted);line-height:1.5;margin:0}
+@media(min-width:768px){
+  .gen-ficha-gal{grid-template-columns:1fr 1fr;gap:.8rem;margin:0}
+  .gen-ficha-img:first-child{aspect-ratio:1.1/1}
+}
 }
