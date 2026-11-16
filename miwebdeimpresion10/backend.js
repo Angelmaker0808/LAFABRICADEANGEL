@@ -1,22 +1,21 @@
 /* ============ backend.js · conexión con Google Apps Script ============ */
 
-// ⬇️ PEGA AQUÍ LA URL DE TU APPS SCRIPT DESPLEGADO
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUcziKWgUSGK3q5iEKaNyGpXK0Bh_Xd7SbETDrnDdJchDaZ0D4vNiQ_A54vTQOmGfE/exec';
 
 const ESTADOS = ['Pedido enviado', 'Esperando pago', 'Pago confirmado', 'Elaborando', 'Enviando', 'Recibido'];
 
 async function postToAppsScript(payload) {
-  const r = await fetch(APPS_SCRIPT_URL, {
+  // mode: 'no-cors' -> el navegador envía el POST aunque no pueda leer la respuesta
+  await fetch(APPS_SCRIPT_URL, {
     method: 'POST',
+    mode: 'no-cors',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify(payload)
   });
-  const data = await r.json();
-  if (!data.ok) throw new Error(data.error || 'Error al enviar');
-  return data;
+  // No podemos saber si falló o no (CORS), pero el POST se ha enviado
+  return { ok: true };
 }
 
-// Se llama desde el formulario de contacto de app.js
 async function viaNetlify(form) {
   const d = Object.fromEntries(new FormData(form).entries());
   return postToAppsScript({
