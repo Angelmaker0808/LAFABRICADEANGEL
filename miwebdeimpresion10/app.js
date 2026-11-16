@@ -13,27 +13,49 @@ const PROMOS = {
   cartel: { emoji: '💡', tone: 'lemon', title: 'Cartelería luminosa', text: 'Tu nombre, logo o frase con luz propia.' },
   clicker: { emoji: '👆', tone: 'peach', title: 'Clicker personalizado', text: 'Cuéntanos cómo lo quieres y lo fabricamos.' }
 };
-const GENERADORES = {
-  estatua: { emoji: '🗿', nombre: 'Tu foto, convertida en estatua', sub: 'Envíanos una imagen y la transformamos en una figura 3D.',
-    desc: 'Un generador que convierte cualquier foto en una escultura de sobremesa. No necesitas saber modelar: nosotros nos encargamos de todo. Tú solo eliges la imagen y el tamaño.',
-    necesitas: ['Una foto nítida y bien iluminada', 'Una idea del tamaño que quieres (S, M o L)', 'Si es para regalo o para ti'],
-    pasos: ['Subes tu foto y nos cuentas qué imaginas', 'Te enviamos una propuesta con precio y plazo', 'Modelamos, imprimimos y te lo enviamos'] },
-  nombre: { emoji: '🔑', nombre: 'Hazlo con tu nombre', sub: 'Llaveros y más productos personalizados con tu nombre o frase.',
-    desc: 'Un generador para poner tu nombre, el de alguien especial o una frase corta en piezas pequeñas: llaveros, colgantes, marcapáginas y más. Ideal para regalos únicos y detalles.',
-    necesitas: ['El nombre o la frase exacta', 'El tipo de pieza (llavero, colgante…)', 'Un color de los disponibles'],
-    pasos: ['Escribes el texto tal como lo quieres', 'Elegimos la pieza y el color contigo', 'Lo fabricamos y lo enviamos'] },
-  cartel: { emoji: '💡', nombre: 'Cartelería luminosa', sub: 'Tu nombre, logo o frase con luz propia.',
-    desc: 'Un generador de carteles y letreros luminosos con LED. Perfecto para habitaciones, negocios o como regalo llamativo. La luz se puede cambiar de color en muchos modelos.',
-    necesitas: ['El texto o el logo exacto', 'Medidas orientativas o el uso que le vas a dar', 'Si lo quieres con enchufe o USB'],
-    pasos: ['Nos cuentas qué debe poner y para qué', 'Te proponemos medidas y acabado', 'Lo fabricamos y lo enviamos listo para enchufar'] },
-  clicker: { emoji: '👆', nombre: 'Clicker personalizado', sub: 'Cuéntanos cómo lo quieres y lo fabricamos.',
-    desc: 'Un generador para crear un clicker a medida. Nos cuentas forma, tamaño, si es para uso propio o para un evento, y lo diseñamos contigo. Es una pieza única, no un producto de catálogo.',
-    necesitas: ['Para qué lo vas a usar', 'Cómo lo imaginas (forma, color, si lleva texto)', 'Si es una unidad o varias'],
-    pasos: ['Nos cuentas tu idea', 'Te enviamos una propuesta con boceto', 'Lo fabricamos y lo enviamos'] }
-};
-const TIPOS = { general: 'Diseño a medida', estatua: 'Mi foto convertida en estatua', clicker: 'Clicker personalizado', nombre: 'Producto con mi nombre (llaveros y más)', cartel: 'Cartelería luminosa', otro: 'Otra idea' };
 const COLORS = ['Hueso', 'Terracota', 'Verde pino', 'Negro mate'];
 const S3 = [{ label: 'S', delta: 0 }, { label: 'M', delta: 4 }, { label: 'L', delta: 8 }], S1 = [{ label: 'Único', delta: 0 }];
+
+const GENERADORES = {
+  estatua: {
+    emoji: '🗿', nombre: 'Estatua a partir de tu foto', sub: 'Envíanos una imagen y la transformamos en una figura 3D.',
+    precioBase: 29, sizes: S3,
+    desc: 'Un generador que convierte cualquier foto en una escultura de sobremesa. No necesitas saber modelar: nosotros nos encargamos de todo. Tú eliges la imagen y el tamaño, y te enviamos un boceto antes de imprimir.',
+    necesitas: ['Una foto nítida y bien iluminada', 'Tamaño que quieres (S, M o L)', 'Si es para regalo o para ti', 'Notas: expresión, detalle, etc.'],
+    pasos: ['Configura el tamaño y añade tus fotos de referencia', 'Añade la pieza al carrito y reserva sin pagar', 'Te enviamos una propuesta con precio final y plazo', 'Modelamos, imprimimos y te la enviamos'],
+    consejos: ['Usa una foto bien iluminada, con fondo simple y sin sombras duras.', 'Retratos de frente o tres cuartos funcionan mejor que perfiles extremos.', 'Cuanta más resolución tenga la foto, mejor será el resultado final.', 'Si dudas, envíanos varias fotos: elegimos la que mejor se adapte.', 'Para figuras de cuerpo entero, avísanos en las notas y lo valoramos.'],
+    guias: [{ t: 'Cómo elegir la foto', p: 'Contraste, foco y fondo limpio son lo más importante. Evita fotos borrosas o con mucho ruido.' }, { t: 'Qué tamaño elegir', p: 'S es ideal para escritorio; M para estantería; L para un regalo grande o escaparate.' }, { t: 'Plazos', p: 'Al ser un trabajo a medida, suele tardar entre 7 y 14 días desde la aprobación del boceto.' }]
+  },
+  nombre: {
+    emoji: '🔑', nombre: 'Producto con tu nombre', sub: 'Llaveros y más productos personalizados con tu nombre o frase.',
+    precioBase: 7.5, sizes: S1,
+    desc: 'Un generador para poner tu nombre, el de alguien especial o una frase corta en piezas pequeñas: llaveros, colgantes, marcapáginas y más. Ideal para regalos únicos y detalles.',
+    necesitas: ['El nombre o la frase exacta', 'El tipo de pieza (llavero, colgante…)', 'Un color de los disponibles', 'Notas con cualquier detalle extra'],
+    pasos: ['Configura color y añade la frase en las notas', 'Añade la pieza al carrito y reserva', 'Te confirmamos la propuesta con precio final', 'Lo fabricamos y lo enviamos'],
+    consejos: ['Escribe el texto exactamente como lo quieres, con mayúsculas y tildes.', 'Para nombres largos, elige tamaños más grandes o divide en dos líneas.', 'Los colores oscuros con letras claras contrastan mejor en piezas pequeñas.', 'Si es un regalo, avísanos: preparamos un packaging especial.'],
+    guias: [{ t: 'Cómo escribir el texto', p: 'Cuida tildes y mayúsculas. Si quieres una tipografía concreta, indícalo en las notas.' }, { t: 'Materiales', p: 'PLA+ para uso decorativo. Si va a recibir tirones, avísanos y usamos PETG.' }, { t: 'Plazos', p: 'Piezas pequeñas suelen estar listas en 3-5 días laborables.' }]
+  },
+  cartel: {
+    emoji: '💡', nombre: 'Cartelería luminosa', sub: 'Tu nombre, logo o frase con luz propia.',
+    precioBase: 39, sizes: S3,
+    desc: 'Un generador de carteles y letreros luminosos con LED. Perfecto para habitaciones, negocios o como regalo llamativo. La luz se puede cambiar de color en muchos modelos.',
+    necesitas: ['El texto o el logo exacto', 'Medidas orientativas o el uso', 'Si lo quieres con enchufe o USB', 'Notas con colores o estilo'],
+    pasos: ['Elige el tamaño y añade referencias en las notas', 'Añade la pieza al carrito y reserva', 'Te enviamos una propuesta con medidas y precio', 'Lo fabricamos y lo enviamos listo para enchufar'],
+    consejos: ['Mándanos el logo en vector (SVG, PDF o AI) si lo tienes; si no, una foto nítida.', 'Para textos largos, elige tamaños M o L: se lee mejor y la luz se distribuye mejor.', 'Indica si lo quieres con enchufe, USB o batería.', 'Dinos si va a ir en interior o exterior para usar el material adecuado.'],
+    guias: [{ t: 'Cómo preparar el logo', p: 'Lo ideal es un vector. Si no lo tienes, una imagen limpia y con buen contraste sirve.' }, { t: 'Tamaños recomendados', p: 'S para escritorio, M para pared pequeña, L para pared grande o negocio.' }, { t: 'Plazos', p: 'Al llevar LED y montaje, suele tardar entre 5 y 10 días laborables.' }]
+  },
+  clicker: {
+    emoji: '👆', nombre: 'Clicker personalizado', sub: 'Cuéntanos cómo lo quieres y lo fabricamos.',
+    precioBase: 15, sizes: S1,
+    desc: 'Un generador para crear un clicker a medida. Nos cuentas forma, tamaño, si es para uso propio o para un evento, y lo diseñamos contigo. Es una pieza única, no un producto de catálogo.',
+    necesitas: ['Para qué lo vas a usar', 'Cómo lo imaginas (forma, color, texto)', 'Si es una unidad o varias', 'Notas con cualquier detalle'],
+    pasos: ['Configura color y añade ideas en las notas', 'Añade la pieza al carrito y reserva', 'Te enviamos una propuesta con boceto', 'Lo fabricamos y lo enviamos'],
+    consejos: ['Cuéntanos si es para uso propio, para un evento o para un regalo.', 'Si es para varias personas, dinos cuántas y lo valoramos en conjunto.', 'Adjunta fotos de referencia si tienes algo parecido en mente.', 'Los clickers personalizados no admiten devolución salvo defecto.'],
+    guias: [{ t: 'Cómo describirlo', p: 'Forma, tamaño, si lleva texto, si es para uso diario o para un evento puntual.' }, { t: 'Materiales', p: 'PLA+ por defecto. Si va a recibir mucho uso, indícalo y usamos PETG.' }, { t: 'Plazos', p: 'Piezas a medida: 5-7 días laborables desde la aprobación del boceto.' }]
+  }
+};
+
+const TIPOS = { general: 'Diseño a medida', estatua: 'Mi foto convertida en estatua', clicker: 'Clicker personalizado', nombre: 'Producto con mi nombre (llaveros y más)', cartel: 'Cartelería luminosa', otro: 'Otra idea' };
 
 const CATS = [
   { id: 'navidad', name: 'Navidad', blurb: 'Piezas de temporada para regalar y decorar. Series limitadas.' },
@@ -83,6 +105,12 @@ const eur = n => new Intl.NumberFormat('es-ES', { style: 'currency', currency: '
 const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const genCode = p => p + '-' + Array.from({ length: 4 }, () => 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789'[Math.floor(Math.random() * 34)]).join('');
 const byId = id => PRODUCTS.find(p => p.id === id), catOf = id => CATS.find(c => c.id === id);
+const isGen = id => !!GENERADORES[id];
+const genAsProduct = id => {
+  const g = GENERADORES[id];
+  if (!g) return null;
+  return { id, name: g.nombre, price: g.precioBase, emoji: g.emoji, colors: COLORS, sizes: g.sizes || S1, desc: g.desc, esGenerador: true };
+};
 const pic = p => `<img src="img/${p.id}.jpg" alt="${esc(p.name)}" data-e="${p.emoji}" loading="lazy" onerror="phFix(this)">`;
 function phFix(i) { const d = document.createElement('div'); d.className = 'ph'; d.textContent = i.dataset.e; i.replaceWith(d); }
 const card = p => `<a class="card" style="--tint:${CAT_TINT[p.cat]}" href="producto.html?id=${p.id}"><div class="img">${pic(p)}${p.cat === 'navidad' ? '<span class="tag">Navidad</span>' : ''}</div>
@@ -104,7 +132,7 @@ const badge = () => {
 };
 const saveCart = () => { localStorage.setItem('cart3d', JSON.stringify(cart)); badge(); };
 function addItem(it) {
-  const same = cart.find(i => ['id', 'color', 'size', 'notes'].every(k => i[k] === it[k]));
+  const same = cart.find(i => ['id', 'color', 'size', 'notes'].every(k => i[k] === it[k]) && (i.files || []).join() === (it.files || []).join());
   same ? same.qty += it.qty : cart.push(it); saveCart();
 }
 
@@ -192,29 +220,72 @@ if (pg === 'catalogo') {
 }
 
 if (pg === 'producto') {
-  const p = byId(new URLSearchParams(location.search).get('id')), root = $('#prod');
-  if (!p) root.innerHTML = '<div class="empty" style="margin:40px 0">No encontramos este producto. <a href="catalogo.html" style="text-decoration:underline">Volver al catálogo</a></div>';
-  else {
+  const id = new URLSearchParams(location.search).get('id');
+  const root = $('#prod');
+  const esGen = isGen(id);
+  const p = esGen ? genAsProduct(id) : byId(id);
+  if (!p) {
+    root.innerHTML = '<div class="empty" style="margin:40px 0">No encontramos este producto. <a href="catalogo.html" style="text-decoration:underline">Volver al catálogo</a></div>';
+  } else {
     document.title = `${p.name} · ${SITE.name}`;
-    let color = p.colors[0], size = p.sizes[0], qty = 1; const c = catOf(p.cat);
-    root.innerHTML = `<div class="pgrid"><div class="pimg" style="--tint:${CAT_TINT[p.cat]}">${pic(p)}</div><div class="pinfo">
-      <nav class="crumb"><a href="catalogo.html">Catálogo</a> / <a href="catalogo.html?cat=${p.cat}">${c.name}</a></nav><h1>${esc(p.name)}</h1><div class="pprice" id="pp"></div><p class="lead">${esc(p.desc || c.blurb)}</p>
+    let color = p.colors[0], size = p.sizes[0], qty = 1;
+    let genFiles = [];
+    const crumb = esGen
+      ? `<nav class="crumb"><a href="generadores.html">Generadores</a> / <span>${esc(p.name)}</span></nav>`
+      : `<nav class="crumb"><a href="catalogo.html">Catálogo</a> / <a href="catalogo.html?cat=${p.cat}">${catOf(p.cat).name}</a></nav>`;
+    const tagGen = esGen ? `<p class="gen-tag">Generador personalizado</p>` : '';
+    const gallery = esGen
+      ? `<div class="gen-ficha-gal">
+           <div class="gen-ficha-img"><img src="img/gen-${id}-1.jpg" alt="" data-e="${p.emoji}" loading="lazy" onerror="phFix(this)"></div>
+           <div class="gen-ficha-img"><img src="img/gen-${id}-2.jpg" alt="" data-e="${p.emoji}" loading="lazy" onerror="phFix(this)"></div>
+           <div class="gen-ficha-img"><img src="img/gen-${id}-3.jpg" alt="" data-e="${p.emoji}" loading="lazy" onerror="phFix(this)"></div>
+         </div>`
+      : `<div class="pimg" style="--tint:${CAT_TINT[p.cat]}">${pic(p)}</div>`;
+    const zonaImgs = esGen
+      ? `<div class="opt"><label>Imágenes de referencia <span class="opt-t">(hasta 3 · 5 MB c/u)</span></label>
+           <div class="upl"><label class="drop" for="gen-files">＋ Añadir imágenes</label><input type="file" id="gen-files" accept="image/*" multiple hidden><div class="thumbs" id="gen-thumbs"></div></div>
+         </div>`
+      : '';
+    const notesLabel = esGen ? 'Notas para el diseño' : 'Notas de personalización';
+    root.innerHTML = `<div class="pgrid"><div>${gallery}</div><div class="pinfo">
+      ${crumb}
+      <h1>${esc(p.name)}</h1>
+      ${tagGen}
+      <div class="pprice" id="pp"></div>
+      <p class="lead">${esc(p.desc || (p.cat ? catOf(p.cat).blurb : ''))}</p>
       <div class="opt"><label>Color</label><div class="pills" data-k="color">${p.colors.map((x, i) => `<button class="pill ${i ? '' : 'on'}" data-v="${esc(x)}">${esc(x)}</button>`).join('')}</div></div>
       <div class="opt" ${p.sizes.length < 2 ? 'hidden' : ''}><label>Tamaño</label><div class="pills" data-k="size">${p.sizes.map((s, i) => `<button class="pill ${i ? '' : 'on'}" data-v="${i}">${s.label}${s.delta ? ` +${eur(s.delta)}` : ''}</button>`).join('')}</div></div>
       <div class="opt"><label>Cantidad</label><div class="qty"><button id="qm" aria-label="Menos">−</button><span id="qv">1</span><button id="qp" aria-label="Más">+</button></div></div>
-      <div class="opt"><label for="notes">Notas de personalización</label><textarea id="notes" rows="3" placeholder="Ej.: con mi nombre en la base"></textarea></div>
-      <button class="btn big accent" id="add"></button><ul class="assure"><li>No se cobra nada ahora: te enviamos el enlace de pago tras revisar tu reserva</li><li>Envío gratis en pedidos de +${FREE_SHIP} €</li><li>Personalizable con tus notas</li></ul>
+      ${zonaImgs}
+      <div class="opt"><label for="notes">${notesLabel}</label><textarea id="notes" rows="3" placeholder="Ej.: con mi nombre en la base"></textarea></div>
+      <button class="btn big accent" id="add"></button>
+      <ul class="assure"><li>No se cobra nada ahora: te enviamos el enlace de pago tras revisar tu reserva</li><li>Envío gratis en pedidos de +${FREE_SHIP} €</li>${esGen ? '<li>Te enviamos un boceto antes de fabricar</li>' : '<li>Personalizable con tus notas</li>'}</ul>
       <div style="margin-top:22px"><details><summary>Material y acabado</summary><p>Impreso en 3D bajo demanda. Si quieres un acabado o color especial, indícalo en las notas.</p></details>
       <details><summary>Fabricación y plazos</summary><p>Se fabrica después de tu reserva. Te indicamos el plazo estimado en el correo con el enlace de pago.</p></details>
-      <details><summary>Envío</summary><p>Envío gratis en pedidos de +${FREE_SHIP} €. <a href="legal.html#envios" style="text-decoration:underline">Más información</a>.</p></details></div></div></div><div class="buybar"><div><small>Total</small><b id="bp"></b></div><button class="btn" id="add2">Añadir a la cesta</button></div>`;
+      <details><summary>Envío</summary><p>Envío gratis en pedidos de +${FREE_SHIP} €. <a href="legal.html#envios" style="text-decoration:underline">Más información</a>.</p></details></div>
+    </div></div>
+    <div class="buybar"><div><small>Total</small><b id="bp"></b></div><button class="btn" id="add2">Añadir a la cesta</button></div>`;
     const upd = () => { const pr = p.price + size.delta; $('#pp').textContent = eur(pr); $('#qv').textContent = qty; $('#add').textContent = `Añadir a la cesta · ${eur(pr * qty)}`; $('#bp').textContent = eur(pr * qty); }; upd();
+    if (esGen) {
+      const drawThumbs = () => $('#gen-thumbs').innerHTML = genFiles.map((x, i) => `<div class="thumb"><img src="${URL.createObjectURL(x)}" alt=""><button type="button" data-gi="${i}" aria-label="Quitar">✕</button></div>`).join('');
+      $('#gen-files').onchange = e => {
+        for (const x of e.target.files) { if (genFiles.length >= 3) break; if (!x.type.startsWith('image/') || x.size > 5e6) continue; genFiles.push(x); }
+        e.target.value = ''; drawThumbs();
+      };
+      $('#gen-thumbs').onclick = e => { const b = e.target.closest('button'); if (b) { genFiles.splice(+b.dataset.gi, 1); drawThumbs(); } };
+    }
     root.onclick = e => {
       const b = e.target.closest('.pill'); if (b) { const g = b.parentElement; $$('.pill', g).forEach(x => x.classList.toggle('on', x === b)); g.dataset.k === 'color' ? color = b.dataset.v : size = p.sizes[+b.dataset.v]; upd(); }
       if (e.target.id === 'qm' && qty > 1) { qty--; upd(); } if (e.target.id === 'qp') { qty++; upd(); }
-      if (e.target.id === 'add' || e.target.id === 'add2') { addItem({ id: p.id, name: p.name, color, size: size.label, notes: $('#notes').value.trim(), qty, price: p.price + size.delta }); toast(`${p.name} añadido`, ['carrito.html', 'Ver cesta']); }
+      if (e.target.id === 'add' || e.target.id === 'add2') {
+        addItem({ id: p.id, name: p.name, color, size: size.label, notes: $('#notes').value.trim(), qty, price: p.price + size.delta, files: esGen ? genFiles.map(f => f.name) : [] });
+        toast(`${p.name} añadido`, ['carrito.html', 'Ver cesta']);
+      }
     };
-    const rel = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 3);
-    if (rel.length) { $('#related').innerHTML = rel.map(card).join(''); $('#rel-sec').hidden = false; }
+    if (!esGen) {
+      const rel = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 3);
+      if (rel.length) { $('#related').innerHTML = rel.map(card).join(''); $('#rel-sec').hidden = false; }
+    }
   }
 }
 
@@ -241,7 +312,11 @@ if (pg === 'generadores') {
         <ul class="gen-necesitas">${g.necesitas.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
         <h2>Cómo funciona</h2>
         <ol class="gen-pasos">${g.pasos.map((p, i) => `<li><b>${i + 1}</b><span>${esc(p)}</span></li>`).join('')}</ol>
-        <a class="btn big accent block" href="personalizado.html?tipo=${id}" style="max-width:20rem">Empezar este generador</a>
+        <h2>Consejos y buenas prácticas</h2>
+        <ul class="gen-necesitas">${g.consejos.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+        <h2>Guía rápida</h2>
+        <div class="gen-guias">${g.guias.map(x => `<div class="gen-guia"><b>${esc(x.t)}</b><p>${esc(x.p)}</p></div>`).join('')}</div>
+        <a class="btn big accent block" href="producto.html?id=${id}" style="max-width:22rem;margin-top:1.4rem">Usar este generador · desde ${eur(g.precioBase)}</a>
       </div>
       <div class="gen-gallery">
         <div class="gen-img" data-e="${g.emoji}"><img src="img/gen-${id}-1.jpg" alt="" loading="lazy" onerror="phFix(this)"></div>
@@ -263,8 +338,8 @@ if (pg === 'personalizado') initCustom($('#custom-slot'));
 
 if (pg === 'carrito') {
   const draw = () => {
-    $('#lines').innerHTML = cart.length ? cart.map((i, n) => { const p = byId(i.id) || { id: i.id, name: i.name, emoji: '◌' };
-      return `<div class="line"><div class="img">${pic(p)}</div><div><strong>${esc(i.name)}</strong><small>${esc(i.color)} · ${esc(i.size)} · ${eur(i.price)}</small>${i.notes ? `<small>Notas: ${esc(i.notes)}</small>` : ''}
+    $('#lines').innerHTML = cart.length ? cart.map((i, n) => { const p = byId(i.id) || genAsProduct(i.id) || { id: i.id, name: i.name, emoji: '◌' };
+      return `<div class="line"><div class="img">${pic(p)}</div><div><strong>${esc(i.name)}</strong><small>${esc(i.color)} · ${esc(i.size)} · ${eur(i.price)}</small>${i.notes ? `<small>Notas: ${esc(i.notes)}</small>` : ''}${i.files && i.files.length ? `<small>Imágenes: ${esc(i.files.join(', '))}</small>` : ''}
       <div style="margin-top:8px"><span class="qty"><button data-a="-" data-n="${n}" aria-label="Menos">−</button><span>${i.qty}</span><button data-a="+" data-n="${n}" aria-label="Más">+</button></span><button class="rm" data-a="x" data-n="${n}">Eliminar</button></div></div><div class="sub">${eur(i.price * i.qty)}</div></div>`; }).join('')
       : '<div class="empty">Tu cesta está vacía. <a href="catalogo.html" style="text-decoration:underline">Ver el catálogo</a></div>';
     const t = total(); $('#sum').innerHTML = cart.length ? `<p><span>Artículos</span><span>${count()}</span></p><p class="tot"><span>Total estimado</span><span>${eur(t)}</span></p>
@@ -279,11 +354,11 @@ if (pg === 'carrito') {
 if (pg === 'finalizar') {
   if (!cart.length) $('#checkout').innerHTML = '<div class="empty">Tu cesta está vacía. <a href="catalogo.html" style="text-decoration:underline">Ir al catálogo</a></div>';
   else {
-    $('#sum').innerHTML = cart.map(i => `<p><span>${i.qty} × ${esc(i.name)}<br><small class="muted">${esc(i.color)} · ${esc(i.size)}</small></span><span>${eur(i.price * i.qty)}</span></p>`).join('') + `<p class="tot"><span>Total estimado</span><span>${eur(total())}</span></p>`;
+    $('#sum').innerHTML = cart.map(i => `<p><span>${i.qty} × ${esc(i.name)}<br><small class="muted">${esc(i.color)} · ${esc(i.size)}</small>${i.files && i.files.length ? `<br><small class="muted">Imágenes: ${esc(i.files.join(', '))}</small>` : ''}</span><span>${eur(i.price * i.qty)}</span></p>`).join('') + `<p class="tot"><span>Total estimado</span><span>${eur(total())}</span></p>`;
     $('#form').addEventListener('submit', async e => {
       e.preventDefault(); const f = e.target, code = genCode('RES'), btn = $('#send'), err = $('#err'); err.hidden = true;
       f.codigo.value = code; f.total.value = eur(total());
-      f.pedido.value = cart.map((i, n) => `${n + 1}. ${i.name} | Cantidad: ${i.qty} | Color: ${i.color} | Tamaño: ${i.size} | Notas: ${i.notes || '-'} | ${eur(i.price)} x ${i.qty} = ${eur(i.price * i.qty)}`).join('\n') + `\nTOTAL ESTIMADO: ${eur(total())}`;
+      f.pedido.value = cart.map((i, n) => `${n + 1}. ${i.name} | Cantidad: ${i.qty} | Color: ${i.color} | Tamaño: ${i.size} | Notas: ${i.notes || '-'} | Imágenes: ${(i.files || []).join(', ') || '-'} | ${eur(i.price)} x ${i.qty} = ${eur(i.price * i.qty)}`).join('\n') + `\nTOTAL ESTIMADO: ${eur(total())}`;
       const order = { codigo: code, nombre: f.nombre.value, email: f.email.value, telefono: f.telefono.value, notas: f.notas.value, direccion: { calle: f.calle.value, cp: f.cp.value, ciudad: f.ciudad.value, provincia: f.provincia.value }, items: cart, total: total() };
       btn.disabled = true; btn.textContent = 'Enviando…';
       try {
