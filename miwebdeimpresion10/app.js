@@ -74,7 +74,9 @@ const CATS = [
 const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, cat, colors: COLORS, sizes: S1, ...o });
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('producto-de-prueba-2', 'producto de prueba 2', 4.84, '📦', 'navidad', { featured: 1, badge: "Nuevo", desc: "aber si este si", personalizable: true, dims: "20x20x20" })
+  P('prueba-1', 'prueba 1', 0, '📦', 'navidad', { colors: ["único"], sizes: [{label:"s",delta:0,dims:"10x10x15"}] }),
+  P('prueba-2', 'prueba 2', 0, '📦', 'navidad', { colors: ["único"] }),
+  P('prueba-3', 'prueba 3', 0, '📦', 'navidad', { colors: ["rojo", "amarillo"], sizes: [{label:"s",delta:0,dims:"10x10x15"}, {label:"m",delta:0,dims:"20x20x20"}] })
 ];
 // AUTO-PRODUCTS-END
 
