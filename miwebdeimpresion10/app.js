@@ -57,36 +57,26 @@ const GENERADORES = {
 
 const TIPOS = { general: 'Diseño a medida', estatua: 'Mi foto convertida en estatua', clicker: 'Clicker personalizado', nombre: 'Producto con mi nombre (llaveros y más)', cartel: 'Cartelería luminosa', otro: 'Otra idea' };
 
+// AUTO-CATS-START
 const CATS = [
-  { id: 'navidad', name: 'Navidad', blurb: 'Piezas de temporada para regalar y decorar. Series limitadas.' },
-  { id: 'decoracion', name: 'Decoración', blurb: 'Objetos para dar carácter a una estantería, una mesa o un rincón.' },
-  { id: 'organizacion', name: 'Organización', blurb: 'Soluciones útiles para escritorio, joyas y el día a día.' },
-  { id: 'llaveros', name: 'Llaveros', blurb: 'Pequeños detalles que se pueden personalizar con nombre o diseño.' },
-  { id: 'litofanias', name: 'Litofanías', blurb: 'Tu foto convertida en relieve que cobra vida al trasluz.' },
-  { id: 'iluminacion', name: 'Iluminación', blurb: 'Lámparas de diseño que difunden una luz cálida.' },
-  { id: 'estatuas', name: 'Estatuas', blurb: 'Figuras y esculturas de sobremesa con mucho detalle.' },
-  { id: 'cofrade', name: 'Cofrade', blurb: 'Piezas inspiradas en la tradición cofrade.' },
-  { id: 'tecnologia', name: 'Tecnología', blurb: 'Soportes y organizadores para tus dispositivos.' }
+  { id: 'navidad', name: 'Navidad', blurb: '' },
+  { id: 'decoracion', name: 'Decoración', blurb: '' },
+  { id: 'organizacion', name: 'Organización', blurb: '' },
+  { id: 'llaveros', name: 'Llaveros', blurb: '' },
+  { id: 'litofanias', name: 'Litofanías', blurb: '' },
+  { id: 'iluminacion', name: 'Iluminación', blurb: '' },
+  { id: 'estatuas', name: 'Estatuas', blurb: '' },
+  { id: 'cofrade', name: 'Cofrade', blurb: '' },
+  { id: 'tecnologia', name: 'Tecnología', blurb: '' }
 ];
+// AUTO-CATS-END
 
 const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, cat, colors: COLORS, sizes: S1, ...o });
+// AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('lampara-luna', 'Lámpara Luna', 24.9, '🌙', 'navidad', { sizes: S3 }),
-  P('adorno-estrella', 'Adorno Estrella', 8.5, '⭐', 'navidad'),
-  P('velas-espiral', 'Set Velas Espiral', 18, '🕯️', 'navidad'),
-  P('casa-jengibre', 'Casita de Jengibre', 15, '🏠', 'navidad'), P('reno', 'Reno de Mesa', 12, '🦌', 'navidad'),
-  P('maceta-ondulada', 'Maceta Ondulada', 14, '🪴', 'decoracion', { sizes: S3 }), P('portavelas-arco', 'Portavelas Arco', 16, '🏛️', 'decoracion'),
-  P('figura-abstracta', 'Figura Abstracta', 19.5, '🗿', 'decoracion', { sizes: S3 }), P('jarron-espiral', 'Jarrón Espiral', 22, '🏺', 'decoracion', { sizes: S3, featured: 1 }),
-  P('organizador', 'Organizador Escritorio', 22, '📎', 'organizacion', { featured: 1 }), P('posavasos-terra', 'Set Posavasos Terra', 12, '🟤', 'organizacion'),
-  P('bandeja-joyas', 'Bandeja Portajoyas', 18, '💍', 'organizacion'), P('soporte-movil', 'Soporte Móvil', 9, '📱', 'organizacion'),
-  P('llavero', 'Llavero Personalizado', 6, '🔑', 'llaveros'), P('llavero-nombre', 'Llavero con Nombre', 7.5, '🅰️', 'llaveros', { featured: 1 }), P('llavero-mascota', 'Llavero Mascota', 8, '🐾', 'llaveros'),
-  P('litofania-corazon', 'Litofanía Corazón', 19, '❤️', 'litofanias', { featured: 1, desc: 'Sube tu foto en las notas o envíala por correo tras reservar. Se ve al trasluz.' }),
-  P('litofania-cubo', 'Litofanía Cubo', 24, '🧊', 'litofanias'), P('litofania-panel', 'Panel Litofanía', 32, '🖼️', 'litofanias', { sizes: S3 }),
-  P('lampara-luna-ilum', 'Lámpara Luna (16 colores)', 28, '🌕', 'iluminacion', { featured: 1 }), P('lampara-hongo', 'Lámpara Seta', 21, '🍄', 'iluminacion'), P('lampara-nube', 'Lámpara Nube', 26, '☁️', 'iluminacion'),
-  P('estatua-buda', 'Estatua Buda', 29, '🧘', 'estatuas', { sizes: S3 }), P('estatua-venus', 'Venus de Milo', 34, '🏛️', 'estatuas', { sizes: S3 }), P('estatua-dragon', 'Dragón Articulado', 19, '🐉', 'estatuas', { featured: 1 }),
-  P('cofrade-cirio', 'Cirio Cofrade', 14, '🕯️', 'cofrade'), P('cofrade-rosario', 'Rosario Cofrade', 11, '📿', 'cofrade'), P('cofrade-cruz', 'Cruz de Guía', 16, '✝️', 'cofrade'),
-  P('tec-organizador-cables', 'Organizador Cables', 8, '🔌', 'tecnologia'), P('tec-soporte-auris', 'Soporte Auriculares', 13, '🎧', 'tecnologia'), P('tec-soporte-tablet', 'Soporte Tablet', 15, '📲', 'tecnologia')
+  P('producto-de-prueba', 'producto de prueba', 0, '📦', 'navidad', { desc: "es de prueba", dims: "30x30x30", sizes: S3 })
 ];
+// AUTO-PRODUCTS-END
 
 const GUIDES = [
   { id: 'litofania', tag: 'Litofanías', title: 'Cómo elegir la foto perfecta para tu litofanía', intro: 'Una litofanía convierte una foto en relieve que se ve al trasluz. El resultado depende mucho de la imagen de partida.',
