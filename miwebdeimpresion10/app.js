@@ -358,18 +358,55 @@ if (pg === 'carrito') {
 if (pg === 'finalizar') {
   if (!cart.length) $('#checkout').innerHTML = '<div class="empty">Tu cesta está vacía. <a href="catalogo.html" style="text-decoration:underline">Ir al catálogo</a></div>';
   else {
-    $('#sum').innerHTML = cart.map(i => `<p><span>${i.qty} × ${esc(i.name)}<br><small class="muted">${esc(i.color)} · ${esc(i.size)}</small>${i.files && i.files.length ? `<br><small class="muted">Imágenes: ${esc(i.files.join(', '))}</small>` : ''}</span><span>${eur(i.price * i.qty)}</span></p>`).join('') + `<p class="tot"><span>Total estimado</span><span>${eur(total())}</span></p>`;
+    $('#sum').innerHTML = cart.map(i => `<p><span>${i.qty} × ${esc(i.name)}<br><small class="muted">${esc(i.color)} · ${esc(i.size)}</small></span><span>${eur(i.price * i.qty)}</span></p>`).join('') + `<p class="tot"><span>Total estimado</span><span>${eur(total())}</span></p>`;
     $('#form').addEventListener('submit', async e => {
-      e.preventDefault(); const f = e.target, code = genCode('RES'), btn = $('#send'), err = $('#err'); err.hidden = true;
-      f.codigo.value = code; f.total.value = eur(total());
-      f.pedido.value = cart.map((i, n) => `${n + 1}. ${i.name} | Cantidad: ${i.qty} | Color: ${i.color} | Tamaño: ${i.size} | Notas: ${i.notes || '-'} | Imágenes: ${(i.files || []).join(', ') || '-'} | ${eur(i.price)} x ${i.qty} = ${eur(i.price * i.qty)}`).join('\n') + `\nTOTAL ESTIMADO: ${eur(total())}`;
-      const order = { codigo: code, nombre: f.nombre.value, email: f.email.value, telefono: f.telefono.value, notas: f.notas.value, direccion: { calle: f.calle.value, cp: f.cp.value, ciudad: f.ciudad.value, provincia: f.provincia.value }, items: cart, total: total() };
+      e.preventDefault();
+      const f = e.target, code = genCode('RES'), btn = $('#send'), err = $('#err'); err.hidden = true;
+
+      const metodo = f.metodo_pago.value;
+      const entrega = f.entrega.value;
+      const punto = entrega === 'recogida'
+        ? (f.punto_recogida.value === 'otro' ? f.punto_recogida_otro.value : f.punto_recogida.value)
+        : '';
+
+      f.codigo.value = code;
+      f.total.value = eur(total());
+      f.pedido.value = cart.map((i, n) => `${n + 1}. ${i.name} | Cantidad: ${i.qty} | Color: ${i.color} | Tamaño: ${i.size} | Notas: ${i.notes || '-'} | ${eur(i.price)} x ${i.qty} = ${eur(i.price * i.qty)}`).join('\n') + `\nTOTAL ESTIMADO: ${eur(total())}`;
+
+      const order = {
+        codigo: code,
+        nombre: f.nombre.value,
+        email: f.email.value,
+        telefono: f.telefono.value,
+        notas: f.notas.value,
+        direccion: entrega === 'envio'
+          ? { calle: f.calle.value, cp: f.cp.value, ciudad: f.ciudad.value, provincia: f.provincia.value }
+          : { recogida: true, punto: punto },
+        metodo_pago: metodo,
+        entrega: entrega,
+        punto_recogida: punto,
+        items: cart,
+        total: total()
+      };
+
       btn.disabled = true; btn.textContent = 'Enviando…';
       try {
         await BACKEND.saveOrder(f, order);
         $('#track').href = `seguimiento.html?codigo=${code}&email=${encodeURIComponent(f.email.value)}`;
-        cart = []; saveCart(); $('#code').textContent = code; $('#checkout').hidden = true; $('#done').hidden = false; scrollTo(0, 0);
-      } catch (x) { err.textContent = `No se pudo enviar la reserva (${x.message || 'sin conexión'}). Revisa tu conexión e inténtalo de nuevo.`; err.hidden = false; btn.disabled = false; btn.textContent = 'Confirmar reserva'; }
+        cart = []; saveCart(); $('#code').textContent = code;
+        // Mensaje según método
+        if (metodo === 'tarjeta') {
+          $('#done-msg').textContent = 'En 24-48 h recibirás en tu correo el enlace de pago seguro con tarjeta.';
+        } else {
+          $('#done-msg').textContent = (entrega === 'recogida'
+            ? 'Te avisaremos cuando esté listo para recoger en ' + punto + '. Pagarás en efectivo al recoger.'
+            : 'Te avisaremos cuando esté listo para enviar. Pagarás en efectivo al recibir.');
+        }
+        $('#checkout').hidden = true; $('#done').hidden = false; scrollTo(0, 0);
+      } catch (x) {
+        err.textContent = `No se pudo enviar: ${x.message || 'sin conexión'}`;
+        err.hidden = false; btn.disabled = false; btn.textContent = 'Confirmar reserva';
+      }
     });
     $('#copy').onclick = () => navigator.clipboard.writeText($('#code').textContent).then(() => toast('Código copiado'));
   }
