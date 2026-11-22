@@ -5,106 +5,154 @@
 <link rel="stylesheet" href="styles.css"></head><body data-page="finalizar"><div id="top"></div><main>
 <div class="container"><div class="page-head"><h1>Confirmar reserva</h1><p>Elige cómo quieres recibirlo y cómo pagar.</p></div>
 <div class="cw" id="checkout">
-<form id="form" name="reservas-3d" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="form"><input type="hidden" name="form-name" value="reservas-3d"><p hidden><label>No rellenar <input name="bot-field"></label></p>
+<form id="form" name="reservas-3d" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="form">
+<input type="hidden" name="form-name" value="reservas-3d">
+<p hidden><label>No rellenar <input name="bot-field"></label></p>
 <input type="hidden" name="codigo"><input type="hidden" name="total"><textarea name="pedido" hidden></textarea>
 
-<!-- Datos personales -->
 <div class="field"><label>Nombre y apellidos *</label><input name="nombre" required autocomplete="name"></div>
 <div class="field"><label>Correo electrónico *</label><input type="email" name="email" required autocomplete="email"></div>
 <div class="field"><label>Teléfono / WhatsApp *</label><input type="tel" name="telefono" required autocomplete="tel"></div>
 
-<!-- Modo de pago -->
+<!-- MÉTODO DE PAGO · pill style -->
 <div class="field">
-  <label>¿Cómo quieres pagar? *</label>
-  <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-    <label style="display:flex;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff">
-      <input type="radio" name="metodo_pago" value="tarjeta" required style="margin-top:3px">
-      <div><b>💳 Pagar ahora con tarjeta</b><br><small style="color:var(--muted)">Te enviamos el enlace de pago seguro tras confirmar la reserva</small></div>
-    </label>
-    <label style="display:flex;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff">
-      <input type="radio" name="metodo_pago" value="efectivo" required style="margin-top:3px">
-      <div><b>💵 Pagar al recibir (efectivo)</b><br><small style="color:var(--muted)">Reservas ahora y pagas al recoger o recibir</small></div>
-    </label>
+  <label>Método de pago *</label>
+  <div class="pills" role="radiogroup" id="pago-pills">
+    <button type="button" class="pill" disabled title="Próximamente">💳 Tarjeta · próximamente</button>
+    <button type="button" class="pill on" data-pay="efectivo">💵 Efectivo al recibir</button>
   </div>
+  <input type="hidden" name="metodo_pago" value="efectivo">
 </div>
 
-<!-- Modo de entrega -->
+<!-- MODO DE ENTREGA · pill style -->
 <div class="field">
-  <label>¿Cómo quieres recibirlo? *</label>
-  <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-    <label style="display:flex;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff">
-      <input type="radio" name="entrega" value="envio" required style="margin-top:3px">
-      <div><b>🚚 Envío a domicilio</b><br><small style="color:var(--muted)">Los gastos de envío se añaden en el enlace de pago</small></div>
-    </label>
-    <label style="display:flex;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff">
-      <input type="radio" name="entrega" value="recogida" required style="margin-top:3px">
-      <div><b>📍 Recoger en punto</b><br><small style="color:var(--muted)">Sin gastos de envío</small></div>
-    </label>
+  <label>Modo de entrega *</label>
+  <div class="pills" role="radiogroup" id="entrega-pills">
+    <button type="button" class="pill" disabled title="Próximamente">🚚 Envío · próximamente</button>
+    <button type="button" class="pill on" data-ship="recogida">📍 Recogida en punto</button>
   </div>
+  <input type="hidden" name="entrega" value="recogida">
 </div>
 
-<!-- Bloque envío (oculto si recogida) -->
-<div id="bloque-envio" hidden>
-  <div class="field"><label>Calle y número *</label><input name="calle" autocomplete="street-address"></div>
-  <div class="field"><div class="row"><div><label>Código postal *</label><input name="cp" pattern="[0-9]{5}" inputmode="numeric" autocomplete="postal-code" title="5 dígitos"></div><div><label>Ciudad *</label><input name="ciudad" autocomplete="address-level2"></div></div></div>
-  <div class="field"><label>Provincia *</label><input name="provincia" autocomplete="address-level1"></div>
-</div>
-
-<!-- Bloque recogida (oculto si envío) -->
-<div id="bloque-recogida" hidden>
+<!-- Bloque recogida -->
+<div id="bloque-recogida">
   <div class="field">
     <label>Elige punto de recogida *</label>
-    <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-      <label style="display:flex;gap:10px;padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:#fff">
-        <input type="radio" name="punto_recogida" value="Kiosko Angel" style="margin-top:3px">
-        <div><b>Kiosko Angel</b><br><small style="color:var(--muted)">Punto de recogida</small></div>
-      </label>
-      <label style="display:flex;gap:10px;padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:#fff">
-        <input type="radio" name="punto_recogida" value="Papeleria Alfe Rami" style="margin-top:3px">
-        <div><b>Papeleria Alfe Rami</b><br><small style="color:var(--muted)">Punto de recogida</small></div>
-      </label>
-      <label style="display:flex;gap:10px;padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:#fff">
-        <input type="radio" name="punto_recogida" value="Metro de Montequinto" style="margin-top:3px">
-        <div><b>Metro de Montequinto</b><br><small style="color:var(--muted)">Punto de recogida</small></div>
-      </label>
-      <label style="display:flex;gap:10px;padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:#fff">
-        <input type="radio" name="punto_recogida" value="otro" style="margin-top:3px">
-        <div><b>Otro punto</b><br><small style="color:var(--muted)">Propondré uno en las notas</small></div>
-      </label>
+    <div class="pills" id="puntos-pills">
+      <button type="button" class="pill" data-punto="Kiosko Angel">Kiosko Angel</button>
+      <button type="button" class="pill" data-punto="Papeleria Alfe Rami">Papeleria Alfe Rami</button>
+      <button type="button" class="pill" data-punto="Metro de Montequinto">Metro de Montequinto</button>
+      <button type="button" class="pill" data-punto="otro">Otro punto</button>
+    </div>
+    <input type="hidden" name="punto_recogida" required>
+    <div class="field" id="punto-otro-wrap" hidden style="margin-top:.8rem">
+      <label>Dirección del punto (si "Otro")</label>
+      <input name="punto_recogida_otro" placeholder="Calle, local...">
     </div>
   </div>
-  <div class="field"><label>Dirección / referencia del punto (si "Otro")</label><input name="punto_recogida_otro" placeholder="Calle, local..."></div>
 </div>
 
 <div class="field"><label>Notas (opcional)</label><textarea name="notas" rows="3" placeholder="Algo que debamos saber de tu pedido"></textarea></div>
 
 <label class="chk"><input type="checkbox" name="privacidad" required> Acepto la <a href="legal.html#privacidad" style="text-decoration:underline">política de privacidad</a> y que usen mis datos para gestionar el pedido.</label>
-<p id="err" class="error" role="alert" hidden></p><button class="btn big accent" id="send">Confirmar reserva</button></form>
-<aside class="summary"><h2>Resumen</h2><div id="sum"></div></aside></div>
+<p id="err" class="error" role="alert" hidden></p>
+<button class="btn big accent" id="send">Confirmar reserva</button>
+</form>
+<aside class="summary">
+  <h2>Resumen</h2>
+  <div id="sum"></div>
+</aside>
+</div>
 <div class="donebox" id="done" hidden><div class="ok">✓</div><h1>¡Reserva recibida!</h1><p id="done-msg">Hemos recibido tu solicitud. Te responderemos a tu correo.</p>
-<p>Tu número de pedido</p><div class="codebox" id="code"></div><button class="btn ghost" id="copy">Copiar código</button> <a class="btn" id="track" href="seguimiento.html">Ver estado del pedido</a></div></div>
+<p>Tu número de pedido</p><div class="codebox" id="code"></div><button class="btn ghost" id="copy">Copiar código</button> <a class="btn" id="track" href="seguimiento.html">Ver estado del pedido</a></div>
+</div>
 </main><div id="bottom"></div>
+
+<style>
+/* mini-estilos para pills de método / entrega / punto · no rompen la estética */
+#pago-pills .pill, #entrega-pills .pill, #puntos-pills .pill{
+  background:var(--surface); border:1px solid var(--line); color:var(--ink);
+  font-size:.85rem; padding:.7rem 1rem; min-height:auto;
+}
+#pago-pills .pill:disabled, #entrega-pills .pill:disabled{
+  opacity:.4; cursor:not-allowed; text-decoration:line-through;
+}
+#pago-pills .pill.on, #entrega-pills .pill.on, #puntos-pills .pill.on{
+  background:var(--ink); color:#fff; border-color:var(--ink);
+}
+</style>
+
 <script>
-// Toggle bloques según entrega
-document.querySelectorAll('[name="entrega"]').forEach(r => {
-  r.addEventListener('change', () => {
-    const v = document.querySelector('[name="entrega"]:checked').value;
-    document.getElementById('bloque-envio').hidden = v !== 'envio';
-    document.getElementById('bloque-recogida').hidden = v !== 'recogida';
-    // Ajustar required
-    ['calle','cp','ciudad','provincia'].forEach(n => {
-      const el = document.querySelector('[name="'+n+'"]');
-      if (el) el.required = (v === 'envio');
-    });
-    document.querySelectorAll('[name="punto_recogida"]').forEach(el => el.required = (v === 'recogida'));
+// ---------- Pago ----------
+const pagoPills = document.querySelectorAll('#pago-pills .pill');
+const pagoInput = document.querySelector('[name="metodo_pago"]');
+pagoPills.forEach(p => p.addEventListener('click', () => {
+  if (p.disabled) return;
+  pagoPills.forEach(x => x.classList.remove('on'));
+  p.classList.add('on');
+  pagoInput.value = p.dataset.pay;
+}));
+
+// ---------- Entrega ----------
+const entregaPills = document.querySelectorAll('#entrega-pills .pill');
+const entregaInput = document.querySelector('[name="entrega"]');
+const bloqueRecogida = document.getElementById('bloque-recogida');
+entregaPills.forEach(p => p.addEventListener('click', () => {
+  if (p.disabled) return;
+  entregaPills.forEach(x => x.classList.remove('on'));
+  p.classList.add('on');
+  entregaInput.value = p.dataset.ship;
+  bloqueRecogida.hidden = p.dataset.ship !== 'recogida';
+}));
+
+// ---------- Puntos de recogida ----------
+const puntoPills = document.querySelectorAll('#puntos-pills .pill');
+const puntoInput = document.querySelector('[name="punto_recogida"]');
+const puntoOtroWrap = document.getElementById('punto-otro-wrap');
+const puntoOtroField = document.querySelector('[name="punto_recogida_otro"]');
+puntoPills.forEach(p => p.addEventListener('click', () => {
+  puntoPills.forEach(x => x.classList.remove('on'));
+  p.classList.add('on');
+  puntoInput.value = p.dataset.punto;
+  puntoOtroWrap.hidden = p.dataset.punto !== 'otro';
+  puntoOtroField.required = p.dataset.punto === 'otro';
+}));
+// selección por defecto
+document.querySelector('[data-punto="Kiosko Angel"]').click();
+
+// ---------- Desglose IVA en el resumen ----------
+// Se ejecuta tras rellenar el carrito desde app.js/backend.js.
+// Añadimos una línea desglosada al aside #sum si no existe.
+function renderIvaBreakdown() {
+  const sum = document.getElementById('sum');
+  if (!sum || sum.dataset.ivaDone) return;
+  // Busca el total
+  const totals = sum.querySelectorAll('p, .tot');
+  let total = 0;
+  sum.querySelectorAll('p').forEach(p => {
+    if (/total/i.test(p.textContent)) {
+      const m = p.textContent.match(/([\d.,]+)\s*€/);
+      if (m) total = parseFloat(m[1].replace(/\./g,'').replace(',','.'));
+    }
   });
-});
-// Al marcar "otro", permitir escribir la dirección libre
-document.querySelectorAll('[name="punto_recogida"]').forEach(r => {
-  r.addEventListener('change', () => {
-    const isOtro = document.querySelector('[name="punto_recogida"]:checked')?.value === 'otro';
-    document.querySelector('[name="punto_recogida_otro"]').required = isOtro;
-  });
-});
+  if (!total) return;
+  const base = total / 1.21;
+  const iva = total - base;
+  const fmt = n => n.toFixed(2).replace('.', ',') + ' €';
+  const div = document.createElement('div');
+  div.style.cssText = 'border-top:1px dashed var(--line);margin-top:.6rem;padding-top:.6rem;font-size:.78rem;color:var(--muted);line-height:1.6';
+  div.innerHTML =
+    '<p style="display:flex;justify-content:space-between;margin:.15rem 0"><span>Base imponible</span><span>' + fmt(base) + '</span></p>' +
+    '<p style="display:flex;justify-content:space-between;margin:.15rem 0"><span>IVA (21%)</span><span>' + fmt(iva) + '</span></p>' +
+    '<p style="display:flex;justify-content:space-between;margin:.15rem 0;font-weight:600;color:var(--ink)"><span>Total (IVA incl.)</span><span>' + fmt(total) + '</span></p>';
+  sum.appendChild(div);
+  sum.dataset.ivaDone = '1';
+}
+// reintenta hasta que el carrito se haya renderizado
+const ivaTimer = setInterval(() => {
+  const sum = document.getElementById('sum');
+  if (sum && sum.children.length > 0) { renderIvaBreakdown(); clearInterval(ivaTimer); }
+}, 300);
+setTimeout(() => clearInterval(ivaTimer), 8000);
 </script>
 <script src="backend.js"></script><script src="app.js"></script></body></html>
