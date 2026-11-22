@@ -253,10 +253,14 @@ if (pg === 'producto') {
       ${tagGen}
       <div class="pprice" id="pp"></div>
       <p class="lead">${esc(p.desc || (p.cat ? catOf(p.cat).blurb : ''))}</p>
-      <div class="opt"><label>Color</label><div class="pills" data-k="color">${p.colors.map((x, i) => `<button class="pill ${i ? '' : 'on'}" data-v="${esc(x)}">${esc(x)}</button>`).join('')}</div></div>
+      ${p.colors && p.colors.length > 1
+      ? `<div class="opt"><label>Color</label><div class="pills" data-k="color">${p.colors.map((x, i) => `<button class="pill ${i ? '' : 'on'}" data-v="${esc(x)}">${esc(x)}</button>`).join('')}</div></div>`
+      : `<div class="opt"><label>Color</label><p style="padding:8px 0;font-weight:600">${esc(p.colors && p.colors[0] || 'Hueso')}</p></div>`
+      }
       <div class="opt" ${p.sizes.length < 2 ? 'hidden' : ''}><label>Tamaño</label><div class="pills" data-k="size">${p.sizes.map((s, i) => `<button class="pill ${i ? '' : 'on'}" data-v="${i}">${s.label}${s.delta ? ` +${eur(s.delta)}` : ''}</button>`).join('')}</div></div>
       <div class="opt"><label>Cantidad</label><div class="qty"><button id="qm" aria-label="Menos">−</button><span id="qv">1</span><button id="qp" aria-label="Más">+</button></div></div>
       ${zonaImgs}
+      ${p.dims ? `<div class="opt"><label>Medidas</label><p style="padding:8px 0;font-weight:600">${esc(p.dims)} mm</p></div>` : ''}
       <div class="opt"><label for="notes">${notesLabel}</label><textarea id="notes" rows="3" placeholder="Ej.: con mi nombre en la base"></textarea></div>
       <button class="btn big accent" id="add"></button>
       <ul class="assure"><li>No se cobra nada ahora: te enviamos el enlace de pago tras revisar tu reserva</li><li>Envío gratis en pedidos de +${FREE_SHIP} €</li>${esGen ? '<li>Te enviamos un boceto antes de fabricar</li>' : '<li>Personalizable con tus notas</li>'}</ul>
