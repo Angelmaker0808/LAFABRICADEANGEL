@@ -1,6 +1,6 @@
 /* ============ backend.js · conexión con Google Apps Script ============ */
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwORfyVA8_h1GDoer5YasNjvYvCP2hN4ZQCZU0HPUlGen09pgfOaO3HZhWwmo24LbKp/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwEqvkJghnw2G8zvIb_rbcc9L4XLJecMD3kgsVS2pgNvBATSOfDhDj-ncYgZ7uAbP2/exec';
 
 const ESTADOS = ['Pedido enviado', 'Esperando pago', 'Pago confirmado', 'Elaborando', 'Enviando', 'Recibido'];
 
