@@ -2,17 +2,15 @@
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwEqvkJghnw2G8zvIb_rbcc9L4XLJecMD3kgsVS2pgNvBATSOfDhDj-ncYgZ7uAbP2/exec';
 
-const ESTADOS = ['Pedido enviado', 'Esperando pago', 'Pago confirmado', 'Elaborando', 'Enviando', 'Recibido'];
+const ESTADOS = ['Reserva recibida','Enlace de pago enviado','Pago recibido','En fabricación','Enviado','Entregado','Cancelado'];
 
 async function postToAppsScript(payload) {
-  // mode: 'no-cors' -> el navegador envía el POST aunque no pueda leer la respuesta
   await fetch(APPS_SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify(payload)
   });
-  // No podemos saber si falló o no (CORS), pero el POST se ha enviado
   return { ok: true };
 }
 
@@ -44,6 +42,9 @@ const BACKEND = {
       email: o.email,
       telefono: o.telefono,
       direccion: Object.values(o.direccion || {}).filter(Boolean).join(', '),
+      metodo_pago: o.metodo_pago || 'tarjeta',
+      entrega: o.entrega || 'envio',
+      punto_recogida: o.punto_recogida || '',
       items: items,
       total: o.total + ' €',
       notas: o.notas || '',
@@ -66,29 +67,29 @@ const BACKEND = {
     });
   },
 
- getStatus(codigo, email) {
-  return new Promise((resolve, reject) => {
-    const cbName = 'cb_' + Date.now();
-    const script = document.createElement('script');
-    window[cbName] = (data) => {
-      delete window[cbName];
-      script.remove();
-      if (data && data.ok) resolve(data);
-      else reject(new Error((data && data.error) || 'No encontrado'));
-    };
-    script.onerror = () => {
-      delete window[cbName];
-      reject(new Error('Error de red'));
-    };
-    script.src = APPS_SCRIPT_URL
-      + '?action=status'
-      + '&codigo=' + encodeURIComponent(codigo)
-      + '&email=' + encodeURIComponent(email)
-      + '&callback=' + cbName;
-    document.body.appendChild(script);
-    setTimeout(() => {
-      if (window[cbName]) { delete window[cbName]; reject(new Error('Timeout')); }
-    }, 10000);
-  });
-}
+  getStatus(codigo, email) {
+    return new Promise((resolve, reject) => {
+      const cbName = 'cb_' + Date.now();
+      const script = document.createElement('script');
+      window[cbName] = (data) => {
+        delete window[cbName];
+        script.remove();
+        if (data && data.ok) resolve(data);
+        else reject(new Error((data && data.error) || 'No encontrado'));
+      };
+      script.onerror = () => {
+        delete window[cbName];
+        reject(new Error('Error de red'));
+      };
+      script.src = APPS_SCRIPT_URL
+        + '?action=status'
+        + '&codigo=' + encodeURIComponent(codigo)
+        + '&email=' + encodeURIComponent(email)
+        + '&callback=' + cbName;
+      document.body.appendChild(script);
+      setTimeout(() => {
+        if (window[cbName]) { delete window[cbName]; reject(new Error('Timeout')); }
+      }, 10000);
+    });
+  }
 };
