@@ -115,8 +115,7 @@ const genAsProduct = id => {
 };
 const pic = p => `<img src="img/${p.id}.jpg" alt="${esc(p.name)}" data-e="${p.emoji}" loading="lazy" onerror="phFix(this)">`;
 function phFix(i) { const d = document.createElement('div'); d.className = 'ph'; d.textContent = i.dataset.e; i.replaceWith(d); }
-const card = p => `<a class="card" style="--tint:${CAT_TINT[p.cat]}" href="producto.html?id=${p.id}"><div class="img">${pic(p)}${p.cat === 'navidad' ? '<span class="tag">Navidad</span>' : ''}</div>
-  <div class="body"><span class="catname">${catOf(p.cat).name}</span><h3>${esc(p.name)}</h3><div class="price">Desde ${eur(p.price)}</div><span class="add">Añadir</span></div></a>`;
+  <div class="body"><span class="catname">${catOf(p.cat)?.name || p.cat || 'General'}</span></h3><div class="price">Desde ${eur(p.price)}</div><span class="add">Añadir</span></div></a>`;
 function toast(msg, link) {
   const t = $('#toast'); if(!t) return; t.innerHTML = esc(msg) + (link ? ` <a href="${link[0]}">${link[1]}</a>` : ''); t.classList.add('show');
   clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 3500);
@@ -203,8 +202,11 @@ if (pg === 'home') {
   if (heroArt) heroArt.innerHTML = '<svg viewBox="0 0 300 360" preserveAspectRatio="xMaxYMid meet">' + Array.from({ length: 36 }, (_, i) => { const w = 60 + 70 * Math.abs(Math.sin(i / 5.2)) + (i > 28 ? (i - 28) * 8 : 0); return `<rect x="${150 - w}" y="${330 - i * 9}" width="${w * 2}" height="8" rx="3" fill="hsl(${255 - i * 6} 75% ${70 + i * .4}%)"/>`; }).join('') + '</svg>';
   
   const feat = $('#feat');
-  if (feat) feat.innerHTML = HERO.map(byId).filter(Boolean).map(card).join('');
-  
+if (feat) {
+  const _featPool = PRODUCTS.filter(p => p.featured).slice(0, 3);
+  const _featList = _featPool.length ? _featPool : PRODUCTS.slice(0, 3);
+  feat.innerHTML = _featList.length ? _featList.map(card).join('') : '<div class="empty">Marca algún producto como Destacado en la hoja.</div>';
+}  
   const xmas = $('#xmas-cards');
   if (xmas) xmas.innerHTML = PRODUCTS.filter(p => p.cat === 'navidad').slice(0, 3).map(p => `<a class="mini" href="producto.html?id=${p.id}"><div class="mc-img">${pic(p)}</div><div class="mc-name">${esc(p.name)}</div><div class="mc-price">Desde ${eur(p.price)}</div></a>`).join('');
   
@@ -247,7 +249,7 @@ if (pg === 'catalogo') {
     let l = PRODUCTS.filter(p => (cat === 'todo' || p.cat === cat) && (p.name + ' ' + (catOf(p.cat)?.name || '')).toLowerCase().includes(q.toLowerCase()));
     if (sort === 'asc') l.sort((a, b) => a.price - b.price); if (sort === 'desc') l.sort((a, b) => b.price - a.price); if (sort === 'name') l.sort((a, b) => a.name.localeCompare(b.name, 'es'));
     
-    const title = $('#cat-title'); if (title) title.textContent = cat === 'todo' ? 'Catálogo' : catOf(cat).name;
+    const title = $('#cat-title'); if (title) title.textContent = cat === 'todo' ? 'Catálogo' : (catOf(cat)?.name || 'Catálogo');
     const desc = $('#cat-desc'); if (desc) desc.textContent = cat === 'todo' ? 'Series cortas. Cuando se agota un color, no vuelve.' : (catOf(cat)?.blurb || '');
     const count = $('#count'); if (count) count.textContent = `${l.length} ${l.length === 1 ? 'modelo' : 'modelos'}`;
     
