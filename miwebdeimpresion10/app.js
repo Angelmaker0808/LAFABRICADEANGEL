@@ -190,13 +190,26 @@ function initCustom(slot) {
 
 if (pg === 'home') {
   $('#hero-art').innerHTML = '<svg viewBox="0 0 300 360" preserveAspectRatio="xMaxYMid meet">' + Array.from({ length: 36 }, (_, i) => { const w = 60 + 70 * Math.abs(Math.sin(i / 5.2)) + (i > 28 ? (i - 28) * 8 : 0); return `<rect x="${150 - w}" y="${330 - i * 9}" width="${w * 2}" height="8" rx="3" fill="hsl(${255 - i * 6} 75% ${70 + i * .4}%)"/>`; }).join('') + '</svg>';
-  $('#feat').innerHTML = HERO.map(byId).map(card).join('');
+  
+  // ✅ CORRECCIÓN 1: .filter(Boolean) evita que la web pete si faltan productos HERO
+  $('#feat').innerHTML = HERO.map(byId).filter(Boolean).map(card).join('');
+  
   $('#xmas-cards').innerHTML = PRODUCTS.filter(p => p.cat === 'navidad').slice(0, 3).map(p => `<a class="mini" href="producto.html?id=${p.id}"><div class="mc-img">${pic(p)}</div><div class="mc-name">${esc(p.name)}</div><div class="mc-price">Desde ${eur(p.price)}</div></a>`).join('');
+  
   $$('[data-promo]').forEach(el => { const id = el.dataset.promo, m = PROMOS[id]; el.innerHTML = `<a class="promo" data-tone="${m.tone}" href="generadores.html?id=${id}"><div class="pm-img"><img src="img/promo-${id}.jpg" alt="" data-e="${m.emoji}" loading="lazy" onerror="phFix(this)"></div><div class="pm-txt"><b>${m.title}</b><span>${m.text}</span></div><span class="pm-go" aria-hidden="true">→</span></a>`; });
+  
   $('#cats').innerHTML = HOME_CATS.map(catOf).map(c => `<a class="ctile" href="catalogo.html?cat=${c.id}"><div class="cimg" style="background:${CAT_TINT[c.id]}"><img src="img/cat-${c.id}.jpg" alt="" data-e="${CAT_EMOJI[c.id]}" loading="lazy" onerror="phFix(this)"></div><div class="cname"><b>${c.name}</b><span>${PRODUCTS.filter(p => p.cat === c.id).length}</span></div></a>`).join('');
+  
   $('#home-guides').innerHTML = GUIDES.slice(0, 3).map(g => `<article class="gcard"><small>${g.tag}</small><h3>${g.title}</h3><p>${g.intro}</p><a href="guias.html#${g.id}">Leer guía</a></article>`).join('');
+  
   let cat = 'todo';
-  const draw = () => { const l = (cat === 'todo' ? PRODUCTS.filter(p => p.cat !== 'navidad') : PRODUCTS.filter(p => p.cat === cat)).slice(0, 8); $('#home-grid').innerHTML = l.length ? l.map(card).join('') : '<div class="empty">Aún no hay modelos en esta categoría.</div>'; $('#home-all').href = 'catalogo.html' + (cat === 'todo' ? '' : '?cat=' + cat); };
+  // ✅ CORRECCIÓN 2: Quitamos el filtro que ocultaba 'navidad' para que se vean tus productos
+  const draw = () => { 
+    const l = (cat === 'todo' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat)).slice(0, 8); 
+    $('#home-grid').innerHTML = l.length ? l.map(card).join('') : '<div class="empty">Aún no hay modelos en esta categoría.</div>'; 
+    $('#home-all').href = 'catalogo.html' + (cat === 'todo' ? '' : '?cat=' + cat); 
+  };
+  
   $('#home-chips').innerHTML = chipsHTML(cat);
   $('#home-chips').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; cat = b.dataset.cat; $$('.chip', $('#home-chips')).forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); };
   draw();
@@ -364,25 +377,23 @@ if (pg === 'personalizado') initCustom($('#custom-slot'));
 
 if (pg === 'carrito') {
   const draw = () => {
-    $('#lines').innerHTML = cart.length ? cart.map((i, n) => { const p = byId(i.id) || genAsProduct(i.id) || { id: i.id, name: i.name, emoji: '◌' };
+    $('#lines').innerHTML = cart.length ? cart.map((i, n) => { 
+      const p = byId(i.id) || genAsProduct(i.id) || { id: i.id, name: i.name, emoji: '◌' };
       return `<div class="line"><div class="img">${pic(p)}</div><div><strong>${esc(i.name)}</strong><small>${esc(i.color)} · ${esc(i.size)} · ${eur(i.price)}</small>${i.notes ? `<small>Notas: ${esc(i.notes)}</small>` : ''}${i.files && i.files.length ? `<small>Imágenes: ${esc(i.files.join(', '))}</small>` : ''}
-      <div style="margin-top:8px"><span class="qty"><button data-a="-" data-n="${n}" aria-label="Menos">−</button><span>${i.qty}</span><button data-a="+" data-n="${n}" aria-label="Más">+</button></span><button class="rm" data-a="x" data-n="${n}">Eliminar</button></div></div><div class="sub">${eur(i.price * i.qty)}</div></div>`; }).join('')
-      : '<div class="empty">Tu cesta está vacía. <a href="catalogo.html" style="text-decoration:underline">Ver el catálogo</a></div>';
-    // Dentro de if (pg === 'carrito'), en la función draw():
-const t = total();
-const esRecogida = cart.some(i => i.entrega === 'recogida'); // Asumiendo que guardas esto, si no, lo manejamos en finalizar
-
-$('#sum').innerHTML = cart.length ? `<p><span>Artículos</span><span>${count()}</span></p><p class="tot"><span>Total estimado</span><span>${eur(t)}</span></p>
-  <div class="notice" style="background:#D1FAE5; border-left:4px solid #059669; color:#065F46; padding:12px; border-radius:4px; margin-bottom:12px">
-    ${t >= FREE_SHIP ? '¡Tu pedido tiene envío gratis!' : `Te faltan ${eur(FREE_SHIP - t)} para el envío gratis.`}
-    <div class="bar" style="background:#A7F3D0; height:6px; border-radius:3px; margin-top:8px; overflow:hidden"><i style="display:block; background:#059669; height:100%; width:${Math.min(100, t / FREE_SHIP * 100)}%"></i></div>
-  </div>
-  <div class="notice">No se realizará ningún cobro ahora. Al procesar la reserva recibiremos tu pedido, revisaremos los detalles y te enviaremos un enlace de pago seguro por correo.</div>
-  <a class="btn big block accent" href="finalizar.html">Procesar reserva</a><p style="justify-content:center;margin-top:12px"><a href="catalogo.html" style="text-decoration:underline">Seguir comprando</a></p>` : '';
-    const t = total(); $('#sum').innerHTML = cart.length ? `<p><span>Artículos</span><span>${count()}</span></p><p class="tot"><span>Total estimado</span><span>${eur(t)}</span></p>
-      <div class="notice">${t >= FREE_SHIP ? '¡Tu pedido tiene envío gratis!' : `Te faltan ${eur(FREE_SHIP - t)} para el envío gratis.`}<div class="bar"><i style="width:${Math.min(100, t / FREE_SHIP * 100)}%"></i></div></div>
-      <div class="notice">No se realizará ningún cobro ahora. Al procesar la reserva recibiremos tu pedido, revisaremos los detalles y te enviaremos un enlace de pago seguro por correo para confirmar la fabricación.</div>
-      <a class="btn big block accent" href="finalizar.html">Procesar reserva</a><p style="justify-content:center;margin-top:12px"><a href="catalogo.html" style="text-decoration:underline">Seguir comprando</a></p>` : '';
+      <div style="margin-top:8px"><span class="qty"><button data-a="-" data-n="${n}" aria-label="Menos">−</button><span>${i.qty}</span><button data-a="+" data-n="${n}" aria-label="Más">+</button></span><button class="rm" data-a="x" data-n="${n}">Eliminar</button></div></div><div class="sub">${eur(i.price * i.qty)}</div></div>`; 
+    }).join('') : '<div class="empty">Tu cesta está vacía. <a href="catalogo.html" style="text-decoration:underline">Ver el catálogo</a></div>';
+    
+    const t = total(); 
+    $('#sum').innerHTML = cart.length ? `
+      <p><span>Artículos</span><span>${count()}</span></p>
+      <p class="tot"><span>Total estimado</span><span>${eur(t)}</span></p>
+      <div class="notice" style="background:#D1FAE5; border-left:4px solid #059669; color:#065F46; padding:12px; border-radius:4px; margin-bottom:12px">
+        ${t >= FREE_SHIP ? '¡Tu pedido tiene envío gratis!' : `Te faltan ${eur(FREE_SHIP - t)} para el envío gratis.`}
+        <div class="bar" style="background:#A7F3D0; height:6px; border-radius:3px; margin-top:8px; overflow:hidden"><i style="display:block; background:#059669; height:100%; width:${Math.min(100, t / FREE_SHIP * 100)}%"></i></div>
+      </div>
+      <div class="notice">No se realizará ningún cobro ahora. Al procesar la reserva recibiremos tu pedido, revisaremos los detalles y te enviaremos un enlace de pago seguro por correo.</div>
+      <a class="btn big block accent" href="finalizar.html">Procesar reserva</a>
+      <p style="justify-content:center;margin-top:12px"><a href="catalogo.html" style="text-decoration:underline">Seguir comprando</a></p>` : '';
   };
   $('#lines').onclick = e => { const b = e.target.closest('button'); if (!b) return; const i = cart[b.dataset.n]; if (b.dataset.a === '+') i.qty++; if (b.dataset.a === '-') i.qty--; if (b.dataset.a === 'x' || i.qty < 1) cart.splice(b.dataset.n, 1); saveCart(); draw(); };
   draw();
@@ -477,3 +488,52 @@ if (pg === 'contacto') $('#contact-form').addEventListener('submit', async e => 
   try { await viaNetlify(f); f.outerHTML = '<div class="notice">¡Mensaje enviado! Te responderemos lo antes posible.</div>'; }
   catch (x) { err.textContent = `No se pudo enviar (${x.message || 'sin conexión'}). Escríbenos a ${SITE.email}.`; err.hidden = false; btn.disabled = false; }
 });
+
+/* =================================================================
+   BACKEND COMMUNICATION (Solución definitiva para Sigue tu Pedido)
+   ================================================================= */
+// ⚠️ IMPORTANTE: Pega aquí tu URL de implementación web de Apps Script
+const BACKEND_URL = 'https://script.google.com/macros/s/TU_CODIGO_LARGO_AQUI/exec'; 
+
+const BACKEND = {
+  // Función interna JSONP para evitar bloqueos de red
+  _jsonp: (url) => new Promise((resolve, reject) => {
+    const cb = 'cb_' + Math.random().toString(36).substr(2, 9);
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, 10000);
+    const cleanup = () => { clearTimeout(timer); delete window[cb]; if (script.parentNode) script.parentNode.removeChild(script); };
+    window[cb] = (data) => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Error de red')); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.head.appendChild(script);
+  }),
+
+  getStatus: async (codigo, email) => {
+    const url = `${BACKEND_URL}?action=status&codigo=${encodeURIComponent(codigo)}&email=${encodeURIComponent(email)}`;
+    const data = await BACKEND._jsonp(url);
+    if (!data.ok) throw new Error(data.error || 'No encontrado. Revisa el código y email.');
+    return data;
+  },
+
+  saveOrder: async (form, order) => {
+    const r = await fetch(BACKEND_URL, {
+      method: 'POST',
+      body: JSON.stringify(order),
+      redirect: 'follow' // Clave para que el navegador siga la redirección de Apps Script
+    });
+    if (!r.ok) throw new Error('Error al guardar el pedido');
+    return r.json();
+  },
+
+  saveRequest: async (form, data, files) => {
+    // Si usas Netlify Forms para esto, esta parte funciona tal cual.
+    const formData = new FormData(form);
+    formData.append('codigo', data.codigo);
+    formData.append('tipo', data.tipo);
+    formData.append('descripcion', data.descripcion);
+    files.forEach((f, i) => formData.append(`imagen${i+1}`, f));
+    const r = await fetch('/', { method: 'POST', body: formData });
+    if (!r.ok) throw new Error('Error al enviar solicitud');
+    return r.json();
+  }
+};
