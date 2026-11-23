@@ -629,43 +629,5 @@ if (pg === 'contacto') {
 // ✅ URL CORREGIDA (Eliminada la duplicación que tenías)
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxKdeQBQUaWnz0p_zmIpcNLx5YaHuke7sTBX8LAXzLwAGEcIvOTFEQXkBCQxjbuC6KB/exec'; 
 
-const BACKEND = {
-  _jsonp: (url) => new Promise((resolve, reject) => {
-    const cb = 'cb_' + Math.random().toString(36).substr(2, 9);
-    const script = document.createElement('script');
-    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, 10000);
-    const cleanup = () => { clearTimeout(timer); delete window[cb]; if (script.parentNode) script.parentNode.removeChild(script); };
-    window[cb] = (data) => { cleanup(); resolve(data); };
-    script.onerror = () => { cleanup(); reject(new Error('Error de red')); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
-    document.head.appendChild(script);
-  }),
 
-  getStatus: async (codigo, email) => {
-    const url = `${BACKEND_URL}?action=status&codigo=${encodeURIComponent(codigo)}&email=${encodeURIComponent(email)}`;
-    const data = await BACKEND._jsonp(url);
-    if (!data.ok) throw new Error(data.error || 'No encontrado. Revisa el código y email.');
-    return data;
-  },
 
-  saveOrder: async (form, order) => {
-    const r = await fetch(BACKEND_URL, {
-      method: 'POST',
-      body: JSON.stringify(order),
-      redirect: 'follow'
-    });
-    if (!r.ok) throw new Error('Error al guardar el pedido');
-    return r.json();
-  },
-
-  saveRequest: async (form, data, files) => {
-    const formData = new FormData(form);
-    formData.append('codigo', data.codigo);
-    formData.append('tipo', data.tipo);
-    formData.append('descripcion', data.descripcion);
-    files.forEach((f, i) => formData.append(`imagen${i+1}`, f));
-    const r = await fetch('/', { method: 'POST', body: formData });
-    if (!r.ok) throw new Error('Error al enviar solicitud');
-    return r.json();
-  }
-};
