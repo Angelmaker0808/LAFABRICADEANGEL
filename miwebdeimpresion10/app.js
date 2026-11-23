@@ -74,7 +74,7 @@ const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, ca
 
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('Bola-de-Snoopy', 'Noal', 1.75, '📦', 'navidad', { colors: ["rojo"], sizes: [{label:"S:20x20x20",delta:0,price:1.75,filaments:[{filament:"PLA Hueso",grams:20}]}] })
+  P('Bola-de-Snoopy', 'Boa', 1.09, '📦', 'navidad', { desc: "inj", colors: ["rojo"], sizes: [{label:"S",delta:0,dims:"20X20X20"}] })
 ];
 // AUTO-PRODUCTS-END
 
