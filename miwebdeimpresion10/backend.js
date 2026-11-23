@@ -66,13 +66,11 @@ const BACKEND = {
   },
 
   saveOrder: async (form, order) => {
-    const r = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify(order),
-      redirect: 'follow'
-    });
-    if (!r.ok) throw new Error('Error al guardar el pedido');
-    return r.json();
+    // POST opaco (no-cors): Apps Script redirige a googleusercontent y eso rompe
+    // el modo CORS normal. Con no-cors la petición LLEGA al script (crea la fila
+    // del pedido y envía los correos), aunque el navegador no deje leer la respuesta.
+    await postToAppsScript(order);
+    return { ok: true, codigo: order.codigo };
   },
 
   saveRequest: async (form, o, files) => {

@@ -27,9 +27,12 @@
 <!-- MODO DE ENTREGA · pill style -->
 <div class="field">
   <label>Modo de entrega *</label>
+  <div class="notice" style="background:#D1FAE5; border-left:4px solid #059669; color:#065F46; padding:12px; border-radius:4px; margin-bottom:.8rem; font-size:.9rem">
+    📍 <b>Envío gratis:</b> la entrega se hace en el punto de recogida que elijas. No tiene coste alguno.
+  </div>
   <div class="pills" role="radiogroup" id="entrega-pills">
-    <button type="button" class="pill" disabled title="Próximamente">🚚 Envío · próximamente</button>
-    <button type="button" class="pill on" data-ship="recogida">📍 Recogida en punto</button>
+    <button type="button" class="pill" disabled title="Próximamente">🚚 Envío a domicilio · próximamente</button>
+    <button type="button" class="pill on" data-ship="recogida">📍 Recogida en punto · envío gratis</button>
   </div>
   <input type="hidden" name="entrega" value="recogida">
 </div>

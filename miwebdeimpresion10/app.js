@@ -1,7 +1,7 @@
 /* ============ Estudio Terra · app.js (vanilla) ============ */
 const SITE = { name: 'Estudio Terra', email: 'hola@estudioterra.com',
-  announce: [['Colección Navidad', 'Piezas limitadas de temporada'], ['Encargos antes del 15/12', 'Llega a tiempo a casa'], ['Envío gratis', 'En pedidos +40 €']] };
-const FREE_SHIP = 40;
+  announce: [['Recogida en punto', 'Envío gratis siempre'], ['Encargos antes del 15/12', 'Llega a tiempo a casa'], ['Reserva sin pago', 'Te enviamos el enlace cuando revisemos tu pieza']] };
+const FREE_SHIP = 0; // con recogida en punto de entrega el envío es siempre gratis
 const CAT_EMOJI = { navidad: '🎄', decoracion: '🏺', organizacion: '📎', llaveros: '🔑', litofanias: '🖼️', iluminacion: '💡', estatuas: '🗿', cofrade: '✝️', tecnologia: '🎧' };
 const HERO = ['lampara-luna-ilum', 'litofania-corazon', 'estatua-dragon'];
 const CAT_TINT = { navidad: '#E3F1EA', decoracion: '#EEF0FF', organizacion: '#E6F2FB', llaveros: '#FFEFE5', litofanias: '#FFF6D6', iluminacion: '#FFF6D6', estatuas: '#ECEBFA', cofrade: '#F3E8F4', tecnologia: '#E6F2FB' };
@@ -316,10 +316,10 @@ if (pg === 'producto') {
       ${zonaImgs}
       <div class="opt"><label for="notes">${notesLabel}</label><textarea id="notes" rows="3" placeholder="Ej.: con mi nombre en la base"></textarea></div>
       <button class="btn big accent" id="add"></button>
-      <ul class="assure"><li>No se cobra nada ahora: te enviamos el enlace de pago tras revisar tu reserva</li><li>Envío gratis en pedidos de +${FREE_SHIP} €</li>${esGen ? '<li>Te enviamos un boceto antes de fabricar</li>' : '<li>Personalizable con tus notas</li>'}</ul>
+      <ul class="assure"><li>No se cobra nada ahora: te enviamos el enlace de pago tras revisar tu reserva</li><li>📍 Recogida en punto de entrega · <b>envío gratis</b></li>${esGen ? '<li>Te enviamos un boceto antes de fabricar</li>' : '<li>Puedes personalizarlo con tus notas</li>'}</ul>
       <div style="margin-top:22px"><details><summary>Material y acabado</summary><p>Impreso en 3D bajo demanda. Si quieres un acabado o color especial, indícalo en las notas.</p></details>
       <details><summary>Fabricación y plazos</summary><p>Se fabrica después de tu reserva. Te indicamos el plazo estimado en el correo con el enlace de pago.</p></details>
-      <details><summary>Envío</summary><p>Envío gratis en pedidos de +${FREE_SHIP} €. <a href="legal.html#envios" style="text-decoration:underline">Más información</a>.</p></details></div>
+      <details><summary>Envío</summary><p>La entrega se hace en punto de recogida y el <b>envío es gratis</b> en todos los pedidos. <a href="legal.html#envios" style="text-decoration:underline">Más información</a>.</p></details></div>
     </div></div>
     <div class="buybar"><div><small>Total</small><b id="bp"></b></div><button class="btn" id="add2">Añadir a la cesta</button></div>`;
     
@@ -456,8 +456,7 @@ if (pg === 'carrito') {
       <p><span>Artículos</span><span>${count()}</span></p>
       <p class="tot"><span>Total estimado</span><span>${eur(t)}</span></p>
       <div class="notice" style="background:#D1FAE5; border-left:4px solid #059669; color:#065F46; padding:12px; border-radius:4px; margin-bottom:12px">
-        ${t >= FREE_SHIP ? '¡Tu pedido tiene envío gratis!' : `Te faltan ${eur(FREE_SHIP - t)} para el envío gratis.`}
-        <div class="bar" style="background:#A7F3D0; height:6px; border-radius:3px; margin-top:8px; overflow:hidden"><i style="display:block; background:#059669; height:100%; width:${Math.min(100, t / FREE_SHIP * 100)}%"></i></div>
+        📍 <b>Envío gratis:</b> la entrega se hace en el punto de recogida que elijas.
       </div>
       <div class="notice">No se realizará ningún cobro ahora. Al procesar la reserva recibiremos tu pedido, revisaremos los detalles y te enviaremos un enlace de pago seguro por correo.</div>
       <a class="btn big block accent" href="finalizar.html">Procesar reserva</a>
@@ -473,7 +472,7 @@ if (pg === 'finalizar') {
   if (!cart.length && checkout) checkout.innerHTML = '<div class="empty">Tu cesta está vacía. <a href="catalogo.html" style="text-decoration:underline">Ir al catálogo</a></div>';
   else if (checkout) {
     const sum = $('#sum');
-    if (sum) sum.innerHTML = cart.map(i => `<p><span>${i.qty} × ${esc(i.name)}<br><small class="muted">${esc(i.color)} · ${esc(i.size)}</small></span><span>${eur(i.price * i.qty)}</span></p>`).join('') + `<p class="tot"><span>Total estimado</span><span>${eur(total())}</span></p>`;
+    if (sum) sum.innerHTML = cart.map(i => `<p><span>${i.qty} × ${esc(i.name)}<br><small class="muted">${esc(i.color)} · ${esc(i.size)}</small></span><span>${eur(i.price * i.qty)}</span></p>`).join('') + `<p class="tot"><span>Total estimado</span><span>${eur(total())}</span></p><p style="color:#065F46;font-weight:600">📍 Envío gratis · recogida en punto</p>`;
     
     const form = $('#form');
     if (form) form.addEventListener('submit', async e => {
@@ -552,6 +551,7 @@ if (pg === 'seguimiento') {
         const est = d.estado || 'Reserva recibida';
         const estadosLista = typeof ESTADOS !== 'undefined' ? ESTADOS : ['Reserva recibida','Enlace de pago enviado','Pago recibido','En fabricación','Enviado','Entregado','Cancelado'];
         const idx = estadosLista.indexOf(est);
+        const esRecogida = (d.entrega === 'recogida') || (typeof d.direccion === 'string' && /recogida/i.test(d.direccion)) || ((d.items || []).some(it => /recogida/i.test(String(it))));
 
         out.innerHTML = `
           <div style="background: #EEF0FF; padding: 24px; border-radius: 12px; margin-bottom: 24px; text-align: center; border: 1px solid #C7D2FE;">
@@ -560,6 +560,12 @@ if (pg === 'seguimiento') {
             <p style="font-size: 16px; margin: 0;">Estado actual: <b style="color: #4F46E5; font-size: 20px;">${esc(est)}</b></p>
             ${d.fecha ? `<p style="font-size: 13px; color: #6B7280; margin-top: 8px;">📅 Fecha de reserva: ${esc(d.fecha)}</p>` : ''}
           </div>
+
+          ${esRecogida ? `
+          <div style="background:#D1FAE5; border:1px solid #059669; color:#065F46; padding:16px 20px; border-radius:12px; margin-bottom:24px; text-align:center; font-size:15px; font-weight:600">
+            📍 Entrega en punto de recogida · ENVÍO GRATIS
+            ${d.punto_recogida ? `<div style="margin-top:6px; font-weight:400; font-size:14px">Punto: ${esc(d.punto_recogida)}</div>` : ''}
+          </div>` : ''}
           
           <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
             ${estadosLista.map((s, i) => {
