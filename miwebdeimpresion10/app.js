@@ -74,19 +74,19 @@ const CATS = [
 const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, cat, colors: COLORS, sizes: S1, ...o });
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('bandejas-de-arbol-apilables', 'Bandejas de Arbol Apilables', 0, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
-  P('bola-de-papa-noel', 'Bola de Papa Noel', 0, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
-  P('bola-de-snoopy', 'Bola de Snoopy', 0, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
-  P('cuenco-de-arbol', 'cuenco de arbol', 21.18, '📦', 'navidad', { colors: ["Único"] }),
-  P('bola-de-stich', 'Bola de Stich', 0, '📦', 'navidad', { colors: ["Único"] }),
-  P('casa-navidena-kit', 'Casa Navideña Kit', 0, '📦', 'navidad', { colors: ["Único"] }),
-  P('cuenco-de-papa-noel', 'Cuenco de Papa Noel', 0, '📦', 'navidad', { colors: ["Único"] }),
-  P('jersey-personalizable', 'Jersey Personalizable', 0, '📦', 'navidad', { colors: ["Único"] }),
-  P('lazo-navideno', 'Lazo Navideño', 0, '📦', 'navidad', { colors: ["Único"] }),
-  P('llavero-navideno-personalizado', 'Llavero Navideño Personalizado', 0, '📦', 'navidad', { colors: ["Único"] }),
-  P('miniatura-grinch', 'Miniatura Grinch', 0, '📦', 'navidad', { colors: ["Único"] }),
-  P('reno-minimalista', 'Reno Minimalista', 0, '📦', 'navidad', { colors: ["Único"] }),
-  P('silueta-de-reno', 'Silueta de Reno', 0, '📦', 'navidad', { colors: ["Único"] })
+  P('Bandejas-de-Arbol-Apilables', 'Bandejas de Arbol Apilables', 0.61, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
+  P('Bola-de-Papa-Noel', 'Bola de Papa Noel', 0.61, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
+  P('Bola-de-Snoopy', 'Bola de Snoopy', 0.61, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
+  P('Cuenco-de-Arbol', 'cuenco de arbol', 4.24, '📦', 'navidad', { colors: ["Único"] }),
+  P('Bola-de-Stich', 'Bola de Stich', 0.61, '📦', 'navidad', { colors: ["Único"] }),
+  P('Casa-Navidena-Kit', 'Casa Navideña Kit', 0.61, '📦', 'navidad', { colors: ["Único"] }),
+  P('Cuenco-de-Papa-Noel', 'Cuenco de Papa Noel', 0.61, '📦', 'navidad', { colors: ["Único"] }),
+  P('Jersey-Personalizable', 'Jersey Personalizable', 0.61, '📦', 'navidad', { colors: ["Único"] }),
+  P('Lazo-Navideno', 'Lazo Navideño', 0.61, '📦', 'navidad', { colors: ["Único"] }),
+  P('Llavero-Navideno-Personalizado', 'Llavero Navideño Personalizado', 0.61, '📦', 'navidad', { colors: ["Único"] }),
+  P('Miniatura-Grinch', 'Miniatura Grinch', 0.61, '📦', 'navidad', { colors: ["Único"] }),
+  P('Reno-Minimalista', 'Reno Minimalista', 0.61, '📦', 'navidad', { colors: ["Único"] }),
+  P('Silueta-de-Reno', 'Silueta de Reno', 0.61, '📦', 'navidad', { colors: ["Único"] })
 ];
 // AUTO-PRODUCTS-END
 
