@@ -30,27 +30,56 @@ async function viaNetlify(form) {
 }
 
 const BACKEND = {
-  async saveOrder(form, o) {
-    const items = (o.items || []).map(i => ({
-      id: i.id, qty: i.qty, name: i.name, color: i.color, size: i.size,
-      price: i.price, files: i.files || []
-    }));
-    return postToAppsScript({
-      type: 'order',
-      codigo: o.codigo,
-      nombre: o.nombre,
-      email: o.email,
-      telefono: o.telefono,
-      direccion: Object.values(o.direccion || {}).filter(Boolean).join(', '),
-      metodo_pago: o.metodo_pago || 'tarjeta',
-      entrega: o.entrega || 'envio',
-      punto_recogida: o.punto_recogida || '',
-      items: items,
-      total: o.total + ' €',
-      notas: o.notas || '',
-      files: items.flatMap(i => i.files || [])
-    });
+  // JSONP helper - evita problemas de CORS con Apps Script
+  _jsonp: (url) => new Promise((resolve, reject) => {
+    const cb = 'cb_' + Math.random().toString(36).substr(2, 9);
+    const script = document.createElement('script');
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error('Timeout'));
+    }, 10000);
+    
+    const cleanup = () => {
+      clearTimeout(timer);
+      delete window[cb];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+    
+    window[cb] = (data) => {
+      cleanup();
+      resolve(data);
+    };
+    
+    script.onerror = () => {
+      cleanup();
+      reject(new Error('Error de red'));
+    };
+    
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.head.appendChild(script);
+  }),
+
+  getStatus: async (codigo, email) => {
+    const url = `${BACKEND_URL}?action=status&codigo=${encodeURIComponent(codigo)}&email=${encodeURIComponent(email)}`;
+    const data = await BACKEND._jsonp(url);
+    if (!data.ok) throw new Error(data.error || 'No encontrado');
+    return data;
   },
+
+  saveOrder: async (form, order) => {
+    const r = await fetch(BACKEND_URL, {
+      method: 'POST',
+      body: JSON.stringify(order),
+      redirect: 'follow'  // <-- CLAVE: sigue la redirección de Apps Script
+    });
+    if (!r.ok) throw new Error('Error al guardar');
+    return r.json();
+  },
+
+  saveRequest: async (form, data, files) => {
+    // ... tu código existente
+  }
+};
 
   async saveRequest(form, o, files) {
     return postToAppsScript({
