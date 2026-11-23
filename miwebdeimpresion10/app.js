@@ -77,7 +77,7 @@ const PRODUCTS = [
   P('uno', 'uno', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
   P('do', 'do', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
   P('s', 's', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
-  P('cuenco-de-arbol', 'Cuenco-de-arbol', 0, '📦', 'navidad', { colors: ["Único"] })
+  P('cuenco-de-arbol', 'cuenco de arbol', 1.82, '📦', 'navidad', { colors: ["Único"] })
 ];
 // AUTO-PRODUCTS-END
 
