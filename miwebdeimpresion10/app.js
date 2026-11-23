@@ -84,7 +84,9 @@ const PRODUCTS = [
   P('Lazo-Navideño', 'Lazo Navideño', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
   P('Llavero-Navideño-Personalizado', 'Llavero Navideño', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
   P('Miniatura-Grinch', 'Miniatura del Grinch', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
-  P('Reno-Minimalista', 'Reno minimalista', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] })
+  P('Reno-Minimalista', 'Reno minimalista', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Silueta-de-Reno', 'Silueta de Reno', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Casa-Navideña-Kit', 'Casa Navideña Kit', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] })
 ];
 // AUTO-PRODUCTS-END
 
