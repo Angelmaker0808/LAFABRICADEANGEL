@@ -623,11 +623,6 @@ if (pg === 'contacto') {
   });
 }
 
-/* =================================================================
-   BACKEND COMMUNICATION (Solución definitiva para Sigue tu Pedido)
-   ================================================================= */
-// ✅ URL CORREGIDA (Eliminada la duplicación que tenías)
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxKdeQBQUaWnz0p_zmIpcNLx5YaHuke7sTBX8LAXzLwAGEcIvOTFEQXkBCQxjbuC6KB/exec'; 
 
 
 
