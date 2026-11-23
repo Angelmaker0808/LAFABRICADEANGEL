@@ -266,12 +266,12 @@ if (pg === 'catalogo') {
 if (pg === 'producto') {
   const id = new URLSearchParams(location.search).get('id');
   const root = $('#prod');
-  if (!root) return;
-  const esGen = isGen(id);
-  const p = esGen ? genAsProduct(id) : byId(id);
-  if (!p) {
-    root.innerHTML = '<div class="empty" style="margin:40px 0">No encontramos este producto. <a href="catalogo.html" style="text-decoration:underline">Volver al catálogo</a></div>';
-  } else {
+  if (root) {
+    const esGen = isGen(id);
+    const p = esGen ? genAsProduct(id) : byId(id);
+    if (!p) {
+      root.innerHTML = '<div class="empty" style="margin:40px 0">No encontramos este producto. <a href="catalogo.html" style="text-decoration:underline">Volver al catálogo</a></div>';
+    } else {
     document.title = `${p.name} · ${SITE.name}`;
     let color = p.colors[0], size = p.sizes[0], qty = 1;
     let genFiles = [];
