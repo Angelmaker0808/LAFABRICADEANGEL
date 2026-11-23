@@ -74,10 +74,19 @@ const CATS = [
 const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, cat, colors: COLORS, sizes: S1, ...o });
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('uno', 'uno', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
-  P('do', 'do', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
-  P('s', 's', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
-  P('cuenco-de-arbol', 'cuenco de arbol', 1.82, '📦', 'navidad', { colors: ["Único"] })
+  P('bandejas-de-arbol-apilables', 'Bandejas de Arbol Apilables', 0, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
+  P('bola-de-papa-noel', 'Bola de Papa Noel', 0, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
+  P('bola-de-snoopy', 'Bola de Snoopy', 0, '📦', 'navidad', { featured: 1, colors: ["Único"] }),
+  P('cuenco-de-arbol', 'cuenco de arbol', 21.18, '📦', 'navidad', { colors: ["Único"] }),
+  P('bola-de-stich', 'Bola de Stich', 0, '📦', 'navidad', { colors: ["Único"] }),
+  P('casa-navidena-kit', 'Casa Navideña Kit', 0, '📦', 'navidad', { colors: ["Único"] }),
+  P('cuenco-de-papa-noel', 'Cuenco de Papa Noel', 0, '📦', 'navidad', { colors: ["Único"] }),
+  P('jersey-personalizable', 'Jersey Personalizable', 0, '📦', 'navidad', { colors: ["Único"] }),
+  P('lazo-navideno', 'Lazo Navideño', 0, '📦', 'navidad', { colors: ["Único"] }),
+  P('llavero-navideno-personalizado', 'Llavero Navideño Personalizado', 0, '📦', 'navidad', { colors: ["Único"] }),
+  P('miniatura-grinch', 'Miniatura Grinch', 0, '📦', 'navidad', { colors: ["Único"] }),
+  P('reno-minimalista', 'Reno Minimalista', 0, '📦', 'navidad', { colors: ["Único"] }),
+  P('silueta-de-reno', 'Silueta de Reno', 0, '📦', 'navidad', { colors: ["Único"] })
 ];
 // AUTO-PRODUCTS-END
 
