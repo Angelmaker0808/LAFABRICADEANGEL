@@ -74,19 +74,7 @@ const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, ca
 
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('Bandejas-de-Arbol-Apilables', 'Bandejas de Arbol Apilables', 0.16, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "blanco"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Bola-de-Papa-Noel', 'Bola de Papa Noel', 0.16, '📦', 'navidad', { colors: ["rojo", "azul"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Bola-de-Snoopy', 'Bola de Snoopy', 0.82, '📦', 'navidad', { colors: ["rojo", "azul", "verde"], sizes: [{label:"S:80X80X3",delta:0,price:0.82,filaments:[{filament:"PLA Hueso",grams:4},{filament:"PETG Negro mate",grams:4}],duration:"60"}, {label:"M:120X120X5",delta:0.58,price:1.4,filaments:[{filament:"PLA Hueso",grams:10},{filament:"PETG Negro mate",grams:10}],duration:"120"}] }),
-  P('cuenco-de-arbol', 'Cuenco de Arbol', 0.16, '📦', 'navidad', { colors: ["verde", "blanco"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Bola-de-Stich', 'Bola de Stich', 0.82, '📦', 'navidad', { colors: ["rojo", "azul", "verde"], sizes: [{label:"S:80X80X3",delta:0,price:0.82,filaments:[{filament:"PLA Terracota",grams:4},{filament:"PETG Negro mate",grams:4}],duration:"60"}, {label:"M:120X120X5",delta:0.58,price:1.4,filaments:[{filament:"PLA Terracota",grams:10},{filament:"PETG Negro mate",grams:10}],duration:"120"}] }),
-  P('Casa-Navideña-Kit', 'Casa Navideña Kit', 0.16, '📦', 'navidad', { colors: ["rojo", "azul", "verde"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Cuenco-de-Papa-Noel', 'Cuenco de Papa Noel', 0.16, '📦', 'navidad', { colors: ["único"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Jersey-Personalizable', 'Jersey Personalizable', 0.16, '📦', 'navidad', { colors: ["rojo", "azul", "verde"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Lazo-Navideño', 'Lazo Navideño', 0.16, '📦', 'navidad', { colors: ["rojo", "azul", "verde", "blanco"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Llavero-Navideño-Personalizado', 'Llavero Navideño Personalizado', 0.16, '📦', 'navidad', { colors: ["rojo", "azul", "verde"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Miniatura-Grinch', 'Miniatura Grinch', 0.16, '📦', 'navidad', { colors: ["único"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Reno-Minimalista', 'Reno Minimalista', 0.16, '📦', 'navidad', { colors: ["rojo", "azul", "verde", "blanco"], sizes: [{label:"Único",delta:0,price:0.16}] }),
-  P('Silueta-de-Reno', 'Silueta de Reno', 0.16, '📦', 'navidad', { colors: ["rojo", "azul", "verde", "blanco"], sizes: [{label:"Único",delta:0,price:0.16}] })
+  P('Bola-de-Snoopy', 'Bola de Snoopy', 1, '📦', 'navidad', { colors: ["Único"], sizes: [{label:"S:30X20X4",delta:0,price:1,filaments:[{filament:"PLA Hueso",grams:2}]}, {label:"M:30X20X6",delta:2.03,price:3.03,filaments:[{filament:"PLA Hueso",grams:50}]}] })
 ];
 // AUTO-PRODUCTS-END
 
