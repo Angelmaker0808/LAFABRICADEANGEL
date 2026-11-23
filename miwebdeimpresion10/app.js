@@ -3,7 +3,7 @@ const SITE = { name: 'Estudio Terra', email: 'hola@estudioterra.com',
   announce: [['Recogida en punto', 'Envío gratis siempre'], ['Encargos antes del 15/12', 'Llega a tiempo a casa'], ['Reserva sin pago', 'Te enviamos el enlace cuando revisemos tu pieza']] };
 const FREE_SHIP = 0; // con recogida en punto de entrega el envío es siempre gratis
 const CAT_EMOJI = { navidad: '🎄', decoracion: '🏺', organizacion: '📎', llaveros: '🔑', litofanias: '🖼️', iluminacion: '💡', estatuas: '🗿', cofrade: '✝️', tecnologia: '🎧' };
-const HERO = ['lampara-luna-ilum', 'litofania-corazon', 'estatua-dragon'];
+const HERO = ['Cuenco-de-Papa-Noel', 'Bola-de-Stich', 'Casa-Navideña-Kit'];
 const CAT_TINT = { navidad: '#E3F1EA', decoracion: '#EEF0FF', organizacion: '#E6F2FB', llaveros: '#FFEFE5', litofanias: '#FFF6D6', iluminacion: '#FFF6D6', estatuas: '#ECEBFA', cofrade: '#F3E8F4', tecnologia: '#E6F2FB' };
 const HOME_CATS = ['litofanias', 'iluminacion', 'llaveros', 'estatuas'];
 const PROMOS = {
