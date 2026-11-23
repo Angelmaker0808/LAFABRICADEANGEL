@@ -74,7 +74,8 @@ const CATS = [
 const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, cat, colors: COLORS, sizes: S1, ...o });
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('Bola-de-Stich', 'Bola de Stich', 0.73, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"80X80X5",price:0.73,filaments:[{filament:"PLA Hueso",grams:4},{filament:"PLA Terracota",grams:4}],duration:"60"}, {label:"M",delta:0.77,dims:"120X120X5",price:1.5,filaments:[{filament:"PLA Hueso",grams:10},{filament:"PLA Terracota",grams:10}],duration:"120"}] })
+  P('Bola-de-Snoopy', 'Bola de Snoopy', 0.82, '📦', 'navidad', { colors: ["rojo", "azul", "verde"], sizes: [{label:"S:80X80X3",delta:0,price:0.82,filaments:[{filament:"PLA Hueso",grams:4},{filament:"PETG Negro mate",grams:4}],duration:"60"}, {label:"M:120X120X5",delta:0.58,price:1.4,filaments:[{filament:"PLA Hueso",grams:10},{filament:"PETG Negro mate",grams:10}],duration:"120"}] }),
+  P('Bola-de-Stich', 'Bola de Stich', 0.82, '📦', 'navidad', { colors: ["rojo", "azul", "verde"], sizes: [{label:"S:80X80X3",delta:0,price:0.82,filaments:[{filament:"PLA Terracota",grams:4},{filament:"PETG Negro mate",grams:4}],duration:"60"}, {label:"M:120X120X5",delta:0.58,price:1.4,filaments:[{filament:"PLA Terracota",grams:10},{filament:"PETG Negro mate",grams:10}],duration:"120"}] })
 ];
 // AUTO-PRODUCTS-END
 
