@@ -493,7 +493,7 @@ if (pg === 'contacto') $('#contact-form').addEventListener('submit', async e => 
    BACKEND COMMUNICATION (Solución definitiva para Sigue tu Pedido)
    ================================================================= */
 // ⚠️ IMPORTANTE: Pega aquí tu URL de implementación web de Apps Script
-const BACKEND_URL = 'https://script.google.com/macros/s/TU_CODIGO_LARGO_AQUI/exec'; 
+const BACKEND_URL = 'https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxKdeQBQUaWnz0p_zmIpcNLx5YaHuke7sTBX8LAXzLwAGEcIvOTFEQXkBCQxjbuC6KB/exec/exec'; 
 
 const BACKEND = {
   // Función interna JSONP para evitar bloqueos de red
