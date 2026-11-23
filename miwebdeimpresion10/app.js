@@ -74,7 +74,7 @@ const CATS = [
 const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, cat, colors: COLORS, sizes: S1, ...o });
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('Bola-de-Stich', 'Bola de Stich', 1.82, '📦', 'navidad', { filament: "pla-hueso", colors: ["azul", "rojo", "verde"], sizes: [{label:"S",delta:0,dims:"80x80x3",grams:"20",minutes:"0",duration:"60",price:1.82}, {label:"M",delta:2.42,dims:"120x120x5",grams:"80",duration:"120",price:4.24}] })
+  P('bola-de-stich', 'Bola de Stich', 6.39, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"80X80X5",price:6.39,filaments:[{filament:"PLA Hueso",grams:4},{filament:"PLA Terracota",grams:4}],duration:"60"}, {label:"M",delta:0.51,dims:"120X120X5",price:6.9,filaments:[{filament:"PLA Hueso",grams:10},{filament:"PLA Terracota",grams:10}],duration:"120"}] })
 ];
 // AUTO-PRODUCTS-END
 
