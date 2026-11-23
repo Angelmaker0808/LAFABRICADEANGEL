@@ -356,6 +356,17 @@ if (pg === 'carrito') {
       return `<div class="line"><div class="img">${pic(p)}</div><div><strong>${esc(i.name)}</strong><small>${esc(i.color)} · ${esc(i.size)} · ${eur(i.price)}</small>${i.notes ? `<small>Notas: ${esc(i.notes)}</small>` : ''}${i.files && i.files.length ? `<small>Imágenes: ${esc(i.files.join(', '))}</small>` : ''}
       <div style="margin-top:8px"><span class="qty"><button data-a="-" data-n="${n}" aria-label="Menos">−</button><span>${i.qty}</span><button data-a="+" data-n="${n}" aria-label="Más">+</button></span><button class="rm" data-a="x" data-n="${n}">Eliminar</button></div></div><div class="sub">${eur(i.price * i.qty)}</div></div>`; }).join('')
       : '<div class="empty">Tu cesta está vacía. <a href="catalogo.html" style="text-decoration:underline">Ver el catálogo</a></div>';
+    // Dentro de if (pg === 'carrito'), en la función draw():
+const t = total();
+const esRecogida = cart.some(i => i.entrega === 'recogida'); // Asumiendo que guardas esto, si no, lo manejamos en finalizar
+
+$('#sum').innerHTML = cart.length ? `<p><span>Artículos</span><span>${count()}</span></p><p class="tot"><span>Total estimado</span><span>${eur(t)}</span></p>
+  <div class="notice" style="background:#D1FAE5; border-left:4px solid #059669; color:#065F46; padding:12px; border-radius:4px; margin-bottom:12px">
+    ${t >= FREE_SHIP ? '¡Tu pedido tiene envío gratis!' : `Te faltan ${eur(FREE_SHIP - t)} para el envío gratis.`}
+    <div class="bar" style="background:#A7F3D0; height:6px; border-radius:3px; margin-top:8px; overflow:hidden"><i style="display:block; background:#059669; height:100%; width:${Math.min(100, t / FREE_SHIP * 100)}%"></i></div>
+  </div>
+  <div class="notice">No se realizará ningún cobro ahora. Al procesar la reserva recibiremos tu pedido, revisaremos los detalles y te enviaremos un enlace de pago seguro por correo.</div>
+  <a class="btn big block accent" href="finalizar.html">Procesar reserva</a><p style="justify-content:center;margin-top:12px"><a href="catalogo.html" style="text-decoration:underline">Seguir comprando</a></p>` : '';
     const t = total(); $('#sum').innerHTML = cart.length ? `<p><span>Artículos</span><span>${count()}</span></p><p class="tot"><span>Total estimado</span><span>${eur(t)}</span></p>
       <div class="notice">${t >= FREE_SHIP ? '¡Tu pedido tiene envío gratis!' : `Te faltan ${eur(FREE_SHIP - t)} para el envío gratis.`}<div class="bar"><i style="width:${Math.min(100, t / FREE_SHIP * 100)}%"></i></div></div>
       <div class="notice">No se realizará ningún cobro ahora. Al procesar la reserva recibiremos tu pedido, revisaremos los detalles y te enviaremos un enlace de pago seguro por correo para confirmar la fabricación.</div>
@@ -383,22 +394,22 @@ if (pg === 'finalizar') {
       f.total.value = eur(total());
       f.pedido.value = cart.map((i, n) => `${n + 1}. ${i.name} | Cantidad: ${i.qty} | Color: ${i.color} | Tamaño: ${i.size} | Notas: ${i.notes || '-'} | ${eur(i.price)} x ${i.qty} = ${eur(i.price * i.qty)}`).join('\n') + `\nTOTAL ESTIMADO: ${eur(total())}`;
 
-      const order = {
-        codigo: code,
-        nombre: f.nombre.value,
-        email: f.email.value,
-        telefono: f.telefono.value,
-        notas: f.notas.value,
-        direccion: entrega === 'envio'
-          ? { calle: f.calle.value, cp: f.cp.value, ciudad: f.ciudad.value, provincia: f.provincia.value }
-          : { recogida: true, punto: punto },
-        metodo_pago: metodo,
-        entrega: entrega,
-        punto_recogida: punto,
-        items: cart,
-        total: total()
-      };
-
+     const order = {
+  codigo: code,
+  nombre: f.nombre.value,
+  email: f.email.value,
+  telefono: f.telefono.value,
+  notas: f.notas.value,
+  // CORRECCIÓN: Enviamos un string limpio, no un objeto anidado que se rompe
+  direccion: entrega === 'envio' 
+    ? `${f.calle.value}, ${f.cp.value} ${f.ciudad.value} (${f.provincia.value})` 
+    : `Recogida en: ${punto}`,
+  metodo_pago: metodo,
+  entrega: entrega,
+  punto_recogida: punto,
+  items: cart,
+  total: total()
+};
       btn.disabled = true; btn.textContent = 'Enviando…';
       try {
         await BACKEND.saveOrder(f, order);
