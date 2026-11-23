@@ -30,7 +30,7 @@ async function viaNetlify(form) {
 }
 
 const BACKEND = {
-  // ✅ CORREGIDO: Ahora se llama _jsonp (con guion bajo)
+  // ✅ CORREGIDO: Ahora se llama _jsonp (con guion bajo) para coincidir con la llamada
   _jsonp: (url) => new Promise((resolve, reject) => {
     const cb = 'cb_' + Math.random().toString(36).substr(2, 9);
     const script = document.createElement('script');
