@@ -30,7 +30,7 @@ async function viaNetlify(form) {
 }
 
 const BACKEND = {
-  // JSONP helper - evita problemas de CORS con Apps Script para GET
+  // ✅ CORREGIDO: Ahora se llama _jsonp (con guion bajo)
   _jsonp: (url) => new Promise((resolve, reject) => {
     const cb = 'cb_' + Math.random().toString(36).substr(2, 9);
     const script = document.createElement('script');
