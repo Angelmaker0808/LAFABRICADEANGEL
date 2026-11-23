@@ -1,6 +1,6 @@
 /* ============ backend.js · conexión con Google Apps Script ============ */
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwEqvkJghnw2G8zvIb_rbcc9L4XLJecMD3kgsVS2pgNvBATSOfDhDj-ncYgZ7uAbP2/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKdeQBQUaWnz0p_zmIpcNLx5YaHuke7sTBX8LAXzLwAGEcIvOTFEQXkBCQxjbuC6KB/exec';
 
 const ESTADOS = ['Reserva recibida','Enlace de pago enviado','Pago recibido','En fabricación','Enviado','Entregado','Cancelado'];
 
