@@ -76,7 +76,8 @@ const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, ca
 const PRODUCTS = [
   P('uno', 'uno', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
   P('do', 'do', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
-  P('s', 's', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] })
+  P('s', 's', 0, '📦', 'decoracion', { featured: 1, colors: ["Único"] }),
+  P('cuenco-de-arbol', 'Cuenco-de-arbol', 0, '📦', 'navidad', { colors: ["Único"] })
 ];
 // AUTO-PRODUCTS-END
 
