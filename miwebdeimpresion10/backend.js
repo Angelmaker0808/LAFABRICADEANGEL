@@ -30,7 +30,7 @@ async function viaNetlify(form) {
 }
 
 const BACKEND = {
-  // JSONP helper - evita problemas de CORS con Apps Script
+  // JSONP helper - evita problemas de CORS con Apps Script para GET
   _jsonp: (url) => new Promise((resolve, reject) => {
     const cb = 'cb_' + Math.random().toString(36).substr(2, 9);
     const script = document.createElement('script');
@@ -60,28 +60,23 @@ const BACKEND = {
   }),
 
   getStatus: async (codigo, email) => {
-    const url = `${BACKEND_URL}?action=status&codigo=${encodeURIComponent(codigo)}&email=${encodeURIComponent(email)}`;
+    const url = `${APPS_SCRIPT_URL}?action=status&codigo=${encodeURIComponent(codigo)}&email=${encodeURIComponent(email)}`;
     const data = await BACKEND._jsonp(url);
-    if (!data.ok) throw new Error(data.error || 'No encontrado');
+    if (!data || !data.ok) throw new Error((data && data.error) || 'No encontrado');
     return data;
   },
 
   saveOrder: async (form, order) => {
-    const r = await fetch(BACKEND_URL, {
+    const r = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       body: JSON.stringify(order),
-      redirect: 'follow'  // <-- CLAVE: sigue la redirección de Apps Script
+      redirect: 'follow'
     });
-    if (!r.ok) throw new Error('Error al guardar');
+    if (!r.ok) throw new Error('Error al guardar el pedido');
     return r.json();
   },
 
-  saveRequest: async (form, data, files) => {
-    // ... tu código existente
-  }
-};
-
-  async saveRequest(form, o, files) {
+  saveRequest: async (form, o, files) => {
     return postToAppsScript({
       type: 'request',
       codigo: o.codigo,
@@ -93,32 +88,6 @@ const BACKEND = {
       total: '',
       notas: (o.tipo ? 'Tipo: ' + o.tipo + '\n' : '') + (o.descripcion || ''),
       files: (files || []).map(f => f.name)
-    });
-  },
-
-  getStatus(codigo, email) {
-    return new Promise((resolve, reject) => {
-      const cbName = 'cb_' + Date.now();
-      const script = document.createElement('script');
-      window[cbName] = (data) => {
-        delete window[cbName];
-        script.remove();
-        if (data && data.ok) resolve(data);
-        else reject(new Error((data && data.error) || 'No encontrado'));
-      };
-      script.onerror = () => {
-        delete window[cbName];
-        reject(new Error('Error de red'));
-      };
-      script.src = APPS_SCRIPT_URL
-        + '?action=status'
-        + '&codigo=' + encodeURIComponent(codigo)
-        + '&email=' + encodeURIComponent(email)
-        + '&callback=' + cbName;
-      document.body.appendChild(script);
-      setTimeout(() => {
-        if (window[cbName]) { delete window[cbName]; reject(new Error('Timeout')); }
-      }, 10000);
     });
   }
 };
