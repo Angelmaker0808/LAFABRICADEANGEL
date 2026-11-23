@@ -74,7 +74,17 @@ const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, ca
 
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
-  P('Bola-de-Snoopy', 'Bola de Snoopy', 1.09, '📦', 'navidad', { desc: "inj", colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] })
+  P('Bola-de-Snoopy', 'Bola de Snoopy', 1.09, '📦', 'navidad', { desc: "inj", colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Bola-de-Stich', 'Bola de Stich', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Bola-de-Papa-Noel', 'Bola de Papa-Noel', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('cuenco-de-arbol', 'Cuenco de Arbol', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Bandejas-de-Arbol-Apilables', 'Bandejas de Arbol Apilables', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Cuenco-de-Papa-Noel', 'Cuenco de Papa Noel', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Jersey-Personalizable', 'Jersey Personalizable', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Lazo-Navideño', 'Lazo Navideño', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Llavero-Navideño-Personalizado', 'Llavero Navideño', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Miniatura-Grinch', 'Miniatura del Grinch', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] }),
+  P('Reno-Minimalista', 'Reno minimalista', 1.09, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"20X20X20"}, {label:"M",delta:1.09,dims:"20x20x20"}] })
 ];
 // AUTO-PRODUCTS-END
 
