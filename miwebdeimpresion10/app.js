@@ -1,5 +1,4 @@
 /* ============ Estudio Terra · app.js (vanilla) ============ */
-
 const SITE = { name: 'Estudio Terra', email: 'hola@estudioterra.com',
   announce: [['Colección Navidad', 'Piezas limitadas de temporada'], ['Encargos antes del 15/12', 'Llega a tiempo a casa'], ['Envío gratis', 'En pedidos +40 €']] };
 const FREE_SHIP = 40;
@@ -72,6 +71,7 @@ const CATS = [
 // AUTO-CATS-END
 
 const P = (id, name, price, emoji, cat, o = {}) => ({ id, name, price, emoji, cat, colors: COLORS, sizes: S1, ...o });
+
 // AUTO-PRODUCTS-START
 const PRODUCTS = [
   P('Bandejas-de-Arbol-Apilables', 'Bandejas de Arbol Apilables', 0.16, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "blanco"], sizes: [{label:"Único",delta:0,price:0.16}] }),
@@ -622,7 +622,3 @@ if (pg === 'contacto') {
     }
   });
 }
-
-
-
-
