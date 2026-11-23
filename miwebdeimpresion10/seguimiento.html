@@ -1,9 +1,37 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Sigue tu pedido · Estudio Terra</title><meta name="description" content="Consulta el estado de tu pedido con tu código y correo.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"></head><body data-page="seguimiento"><div id="top"></div><main>
-<div class="container narrow"><div class="page-head"><h1>Sigue tu pedido</h1><p>Introduce el código de tu reserva y el correo con el que la hiciste.</p></div>
-<form id="track-form" class="form" style="margin-top:20px"><div class="field"><label>Código de reserva</label><input name="codigo" placeholder="RES-849A" required></div><div class="field"><label>Correo electrónico</label><input type="email" name="email" required></div><button class="btn">Consultar estado</button></form>
-<div id="out" role="status" style="margin-top:24px"></div></div>
-</main><div id="bottom"></div><script src="backend.js"></script><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sigue tu pedido · Estudio Terra</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="seguimiento">
+  <div id="top"></div>
+  
+  <main class="container" style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
+    <h1 style="text-align: center; margin-bottom: 8px;">Sigue tu pedido</h1>
+    <p style="text-align: center; color: #6B7280; margin-bottom: 32px;">Introduce el código de tu reserva y el correo con el que la hiciste.</p>
+    
+    <!-- ✅ IDs track-form y out son obligatorios para que funcione el script -->
+    <form id="track-form" style="display: flex; flex-direction: column; gap: 16px;">
+      <div class="field">
+        <label for="codigo">Código de reserva</label>
+        <input type="text" id="codigo" name="codigo" required placeholder="Ej: RES-A1B2" style="text-transform: uppercase;">
+      </div>
+      <div class="field">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required placeholder="tu@email.com">
+      </div>
+      <button type="submit" class="btn big accent" style="margin-top: 8px;">Consultar estado</button>
+    </form>
+
+    <div id="out" style="margin-top: 40px;"></div>
+  </main>
+  
+  <div id="bottom"></div>
+  
+  <script src="backend.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
