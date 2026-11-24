@@ -74,7 +74,7 @@ const PRODUCTS = [
   P('Miniatura-Grinch', 'Miniatura del Grinch', 0.16, '📦', 'navidad', { colors: ["verde"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Llavero-Navideño-Personalizado', 'Llavero Navideño', 0.59, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"30x60x35"}], cats: ["navidad", "llaveros"] }),
   P('Arbol-de-Navidad', 'Arbol de Navidad', 2.35, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"70x70x120"}] }),
-  P('Reno-Minimalista', 'Reno minimalista', 0.33, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"Único",delta:0,dims:""}] }),
+  P('Reno-Minimalista', 'Reno minimalista', 2.5, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Bola-de-Snoopy', 'Bola de Snoopy', 0.73, '📦', 'navidad', { colors: ["rojo", "azul", "verde", "negro", "amarillo"], sizes: [{label:"S",delta:0,dims:"80X80X5"}, {label:"M",delta:0.77,dims:"120X120X5"}] }),
   P('Casa-Navideña-Kit', 'Casa Navideña Kit', 1.71, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"175X175X25"}] }),
   P('Bola-de-Stich', 'Bola de Stich', 0.73, '📦', 'navidad', { colors: ["azul", "rojo", "verde", "negro", "amarillo"], sizes: [{label:"S",delta:0,dims:"80X80X5"}, {label:"M",delta:0.77,dims:"120X120X5"}] }),
