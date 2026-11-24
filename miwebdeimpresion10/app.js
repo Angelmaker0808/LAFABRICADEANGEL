@@ -60,13 +60,10 @@ const TIPOS = { general: 'Diseño a medida', estatua: 'Mi foto convertida en est
 const CATS = [
   { id: 'navidad', name: 'Navidad', blurb: '' },
   { id: 'decoracion', name: 'Decoración', blurb: '' },
-  { id: 'organizacion', name: 'Organización', blurb: '' },
   { id: 'llaveros', name: 'Llaveros', blurb: '' },
   { id: 'litofanias', name: 'Litofanías', blurb: '' },
-  { id: 'iluminacion', name: 'Iluminación', blurb: '' },
-  { id: 'estatuas', name: 'Estatuas', blurb: '' },
-  { id: 'cofrade', name: 'Cofrade', blurb: '' },
-  { id: 'tecnologia', name: 'Tecnología', blurb: '' }
+  { id: 'personalizable', name: 'Personalizable', blurb: '' },
+  { id: 'miniaturas', name: 'Miniaturas', blurb: '' }
 ];
 // AUTO-CATS-END
 
@@ -86,7 +83,6 @@ const PRODUCTS = [
   P('cuenco-de-arbol', 'Cuenco de Arbol', 5.23, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"100x100x180"}] }),
   P('Bandejas-de-Arbol-Apilables', 'Bandejas de Arbol Apilables', 0.16, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Cuenco-de-Papa-Noel', 'Cuenco de Papa Noel', 5.45, '📦', 'navidad', { colors: ["rojo"], sizes: [{label:"S",delta:0,dims:"65X65X100"}] }),
-  P('Lazo-Navideño', 'Lazo Navideño', 0.16, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Silueta-de-Reno', 'Silueta de Reno', 0.54, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"130x65x35"}] }),
   P('Gorro-Personalizado', 'Gorro Personalizado', 1.04, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"70x60x6"}] })
 ];
