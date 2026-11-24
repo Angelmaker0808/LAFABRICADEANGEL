@@ -77,17 +77,17 @@ const PRODUCTS = [
   P('Jersey-Personalizable', 'Jersey Personalizable', 1.22, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"100x80x4"}] }),
   P('Miniatura-Grinch', 'Miniatura del Grinch', 0.16, '📦', 'navidad', { colors: ["verde"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Llavero-Navideño-Personalizado', 'Llavero Navideño', 0.59, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"30x60x35"}], cats: ["navidad", "llaveros"] }),
+  P('Arbol-de-Navidad', 'Arbol de Navidad', 2.35, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"70x70x120"}] }),
+  P('Reno-Minimalista', 'Reno minimalista', 0.16, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Bola-de-Snoopy', 'Bola de Snoopy', 0.73, '📦', 'navidad', { colors: ["rojo", "azul", "verde", "negro", "amarillo"], sizes: [{label:"S",delta:0,dims:"80X80X5"}, {label:"M",delta:0.77,dims:"120X120X5"}] }),
+  P('Casa-Navideña-Kit', 'Casa Navideña Kit', 1.71, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"175X175X25"}] }),
   P('Bola-de-Stich', 'Bola de Stich', 0.73, '📦', 'navidad', { colors: ["azul", "rojo", "verde", "negro", "amarillo"], sizes: [{label:"S",delta:0,dims:"80X80X5"}, {label:"M",delta:0.77,dims:"120X120X5"}] }),
   P('Bola-de-Papa-Noel', 'Bola de Papa-Noel', 0.16, '📦', 'navidad', { colors: ["rojo", "azul", "verde", "negro", "amarillo"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('cuenco-de-arbol', 'Cuenco de Arbol', 5.23, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"100x100x180"}] }),
   P('Bandejas-de-Arbol-Apilables', 'Bandejas de Arbol Apilables', 0.16, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Cuenco-de-Papa-Noel', 'Cuenco de Papa Noel', 5.45, '📦', 'navidad', { colors: ["rojo"], sizes: [{label:"S",delta:0,dims:"65X65X100"}] }),
   P('Lazo-Navideño', 'Lazo Navideño', 0.16, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"Único",delta:0,dims:""}] }),
-  P('Reno-Minimalista', 'Reno minimalista', 0.16, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Silueta-de-Reno', 'Silueta de Reno', 0.54, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"130x65x35"}] }),
-  P('Casa-Navideña-Kit', 'Casa Navideña Kit', 1.71, '📦', 'navidad', { colors: ["rojo", "verde", "azul"], sizes: [{label:"S",delta:0,dims:"175X175X25"}] }),
-  P('Arbol-de-Navidad', 'Arbol de Navidad', 2.35, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"70x70x120"}] }),
   P('Gorro-Personalizado', 'Gorro Personalizado', 1.04, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"70x60x6"}] })
 ];
 // AUTO-PRODUCTS-END
