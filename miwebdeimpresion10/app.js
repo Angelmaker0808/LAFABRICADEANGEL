@@ -5,7 +5,7 @@ const FREE_SHIP = 0; // con recogida en punto de entrega el envío es siempre gr
 const CAT_EMOJI = { navidad: '🎄', decoracion: '🏺', organizacion: '📎', llaveros: '🔑', litofanias: '🖼️', iluminacion: '💡', estatuas: '🗿', cofrade: '✝️', tecnologia: '🎧' };
 const HERO = ['Cuenco-de-Papa-Noel', 'Bola-de-Stich', 'Casa-Navideña-Kit'];
 const CAT_TINT = { navidad: '#E3F1EA', decoracion: '#EEF0FF', organizacion: '#E6F2FB', llaveros: '#FFEFE5', litofanias: '#FFF6D6', iluminacion: '#FFF6D6', estatuas: '#ECEBFA', cofrade: '#F3E8F4', tecnologia: '#E6F2FB' };
-const HOME_CATS = ['litofanias', 'iluminacion', 'llaveros', 'estatuas'];
+const HOME_CATS = ['miniaturas', 'llaveros', 'decoracion', 'personalizable'];
 const PROMOS = {
   estatua: { emoji: '🗿', tone: 'lav', title: 'Tu foto, convertida en estatua', text: 'Envíanos una imagen y la transformamos en una figura 3D.' },
   nombre: { emoji: '🔑', tone: 'mint', title: 'Hazlo con tu nombre', text: 'Llaveros y más productos personalizados con tu nombre o frase.' },
