@@ -78,7 +78,7 @@ const PRODUCTS = [
   P('Miniatura-Grinch', 'Miniatura del Grinch', 0.16, '📦', 'navidad', { colors: ["verde"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('Llavero-Navideño-Personalizado', 'Llavero Navideño', 0.59, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"30x60x35"}], cats: ["navidad", "llaveros"] }),
   P('Bola-de-Snoopy', 'Bola de Snoopy', 0.73, '📦', 'navidad', { colors: ["rojo", "azul", "verde", "negro", "amarillo"], sizes: [{label:"S",delta:0,dims:"80X80X5"}, {label:"M",delta:0.77,dims:"120X120X5"}] }),
-  P('Bola-de-Stich', 'Bola de Stich', 0.73, '📦', 'navidad', { colors: ["azul", "rojo", "verde", "negro", "amarillo"], sizes: [{label:"S",delta:0,dims:"80x80x5"}, {label:"M",delta:0.77,dims:"120x120x5"}] }),
+  P('Bola-de-Stich', 'Bola de Stich', 0.73, '📦', 'navidad', { colors: ["azul", "rojo", "verde", "negro", "amarillo"], sizes: [{label:"S",delta:0,dims:"80X80X5"}, {label:"M",delta:0.77,dims:"120X120X5"}] }),
   P('Bola-de-Papa-Noel', 'Bola de Papa-Noel', 0.16, '📦', 'navidad', { colors: ["rojo", "azul", "verde", "negro", "amarillo"], sizes: [{label:"Único",delta:0,dims:""}] }),
   P('cuenco-de-arbol', 'Cuenco de Arbol', 5.23, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"S",delta:0,dims:"100x100x180"}] }),
   P('Bandejas-de-Arbol-Apilables', 'Bandejas de Arbol Apilables', 0.16, '📦', 'navidad', { colors: ["verde", "rojo", "azul", "negro", "blanco", "amarillo"], sizes: [{label:"Único",delta:0,dims:""}] }),
