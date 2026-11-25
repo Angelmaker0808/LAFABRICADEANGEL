@@ -1,0 +1,2 @@
+// BETA: vista nueva predeterminada de «Últimos trabajos».
+// La vista actual sigue disponible mediante localStorage.
